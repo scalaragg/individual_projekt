@@ -1,0 +1,20 @@
+[gd_scene format=3 uid="uid://cbwoaiarsp4t6"]
+
+[ext_resource type="Script" uid="uid://daisa52rebjp7" path="res://shockwave.gd" id="1_pkgyo"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2wmib"]
+size = Vector2(80, 45)
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_pkgyo"]
+
+[node name="Area2D" type="Area2D" unique_id=1397196868]
+script = ExtResource("1_pkgyo")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1668915813]
+shape = SubResource("RectangleShape2D_2wmib")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=691910711]
+scale = Vector2(80, 45)
+texture = SubResource("CanvasTexture_pkgyo")
+
+[connection signal="body_shape_entered" from="." to="." method="_on_body_shape_entered"]

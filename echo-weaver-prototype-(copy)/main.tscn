@@ -1,0 +1,98 @@
+[gd_scene format=3 uid="uid://b2xrsj1bs3uqo"]
+
+[ext_resource type="PackedScene" uid="uid://cbihbbt0oeqsb" path="res://Player.tscn" id="1_ig7tw"]
+[ext_resource type="PackedScene" uid="uid://ceoodsh3k7tj5" path="res://Enemy.tscn" id="3_h2yge"]
+[ext_resource type="Script" uid="uid://cbesuljs4735d" path="res://hud.gd" id="4_1bvp3"]
+[ext_resource type="PackedScene" uid="uid://bhtbuhewhw6wf" path="res://ground.tscn" id="5_lquwl"]
+
+[node name="Main" type="Node2D" unique_id=1044733990]
+
+[node name="Player" parent="." unique_id=2055960255 instance=ExtResource("1_ig7tw")]
+position = Vector2(2, -5)
+
+[node name="Enemy" parent="." unique_id=254797417 instance=ExtResource("3_h2yge")]
+position = Vector2(1399, -169)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=91065264]
+
+[node name="Control" type="Control" parent="CanvasLayer" unique_id=1257310537]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -12.0
+offset_top = -6.0
+offset_right = -12.0
+offset_bottom = -6.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("4_1bvp3")
+
+[node name="HealthLabel" type="Label" parent="CanvasLayer/Control" unique_id=344858055]
+layout_mode = 0
+offset_left = 20.0
+offset_top = 20.0
+offset_right = 60.0
+offset_bottom = 43.0
+text = "Hp"
+
+[node name="RedLabel" type="Label" parent="CanvasLayer/Control" unique_id=2006700154]
+layout_mode = 0
+offset_left = 20.0
+offset_top = 50.0
+offset_right = 60.0
+offset_bottom = 73.0
+text = "Pulse"
+
+[node name="GreenLabel" type="Label" parent="CanvasLayer/Control" unique_id=1204166112]
+layout_mode = 0
+offset_left = 20.0
+offset_top = 80.0
+offset_right = 68.0
+offset_bottom = 103.0
+text = "FLow"
+
+[node name="BlueLabel" type="Label" parent="CanvasLayer/Control" unique_id=1125238451]
+layout_mode = 0
+offset_left = 20.0
+offset_top = 110.0
+offset_right = 60.0
+offset_bottom = 133.0
+text = "Edge"
+
+[node name="QueuLabel" type="Label" parent="CanvasLayer/Control" unique_id=2143427385]
+layout_mode = 0
+offset_left = 20.0
+offset_top = 160.0
+offset_right = 72.0
+offset_bottom = 183.0
+text = "Queue"
+
+[node name="SealedLabel" type="Label" parent="CanvasLayer/Control" unique_id=2032142957]
+layout_mode = 0
+offset_left = 20.0
+offset_top = 190.0
+offset_right = 71.0
+offset_bottom = 213.0
+text = "Sealed"
+
+[node name="ground7" parent="." unique_id=1894136459 instance=ExtResource("5_lquwl")]
+position = Vector2(172, -120)
+
+[node name="ground6" parent="." unique_id=883152556 instance=ExtResource("5_lquwl")]
+position = Vector2(-437, -15)
+
+[node name="ground4" parent="." unique_id=1849483177 instance=ExtResource("5_lquwl")]
+position = Vector2(933, 50)
+
+[node name="ground5" parent="." unique_id=1547840650 instance=ExtResource("5_lquwl")]
+position = Vector2(1317, 50)
+
+[node name="ground2" parent="." unique_id=480720780 instance=ExtResource("5_lquwl")]
+position = Vector2(419, 50)
+
+[node name="ground3" parent="." unique_id=1841284273 instance=ExtResource("5_lquwl")]
+position = Vector2(676, 50)
+
+[node name="ground" parent="." unique_id=2030380076 instance=ExtResource("5_lquwl")]
+position = Vector2(7, 55)

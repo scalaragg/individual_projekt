@@ -1,0 +1,34 @@
+[gd_scene format=3 uid="uid://ceoodsh3k7tj5"]
+
+[ext_resource type="Script" uid="uid://q2txvc7msx1k" path="res://character_body_2d.gd" id="1_tt7e2"]
+[ext_resource type="PackedScene" uid="uid://bla6q46k5lek4" path="res://Orbs.tscn" id="2_s7bn3"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_s7bn3"]
+size = Vector2(32, 64)
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_2hac7"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_s7bn3"]
+radius = 243.00206
+
+[node name="Enemy" type="CharacterBody2D" unique_id=1407349446 groups=["enemy"]]
+script = ExtResource("1_tt7e2")
+thread_scene = ExtResource("2_s7bn3")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1039893961]
+shape = SubResource("RectangleShape2D_s7bn3")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1545509617]
+modulate = Color(0.45512795, 0.010988612, 0.08829378, 1)
+scale = Vector2(32, 64)
+texture = SubResource("CanvasTexture_2hac7")
+
+[node name="RayCast2D" type="RayCast2D" parent="." unique_id=305086355]
+
+[node name="Area2D" type="Area2D" parent="." unique_id=1053327378]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=727164199]
+shape = SubResource("CircleShape2D_s7bn3")
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]

@@ -1,0 +1,39 @@
+[gd_scene format=3 uid="uid://cbihbbt0oeqsb"]
+
+[ext_resource type="Script" uid="uid://b2u2trq4qbq1s" path="res://player.gd" id="1_xhfnw"]
+[ext_resource type="PackedScene" uid="uid://cbwoaiarsp4t6" path="res://shockwave.tscn" id="2_kpjcp"]
+[ext_resource type="PackedScene" uid="uid://642eo4q8xwfs" path="res://melee_hit.tscn" id="3_kne1u"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_kpjcp"]
+size = Vector2(32, 64)
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_xhfnw"]
+
+[node name="Player" type="CharacterBody2D" unique_id=1801423556 groups=["player"]]
+script = ExtResource("1_xhfnw")
+shockwave_scene = ExtResource("2_kpjcp")
+melee_scene = ExtResource("3_kne1u")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=253081148]
+shape = SubResource("RectangleShape2D_kpjcp")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1815304678]
+modulate = Color(0.7372549, 0.27058825, 0.7411765, 1)
+scale = Vector2(32, 64)
+texture = SubResource("CanvasTexture_xhfnw")
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=1388408771]
+position = Vector2(2, 0)
+limit_enabled = false
+limit_left = 1000
+limit_top = -500
+limit_right = -1000
+limit_bottom = 500
+position_smoothing_enabled = true
+position_smoothing_speed = 10.0
+
+[node name="Area2D" parent="." unique_id=1144647776 instance=ExtResource("2_kpjcp")]
+visible = false
+
+[node name="Area2D2" parent="." unique_id=606899631 instance=ExtResource("3_kne1u")]
+visible = false
