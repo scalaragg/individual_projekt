@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://dva7osgf60lfj"]
 
-[ext_resource type="Script" uid="uid://bxjdl16rk4nvh" path="res://menu.gd" id="1_lti8b"]
+[ext_resource type="Script" uid="uid://bxjdl16rk4nvh" path="res://scripts/menu.gd" id="1_k5kdf"]
 
 [node name="Control" type="Control" unique_id=146970067]
 layout_mode = 3
@@ -11,7 +11,7 @@ offset_top = 346.0
 offset_right = 258.19205
 offset_bottom = 235.01599
 scale = Vector2(3.96, 5.868345)
-script = ExtResource("1_lti8b")
+script = ExtResource("1_k5kdf")
 
 [node name="ColorRect" type="ColorRect" parent="." unique_id=27633038]
 layout_mode = 0

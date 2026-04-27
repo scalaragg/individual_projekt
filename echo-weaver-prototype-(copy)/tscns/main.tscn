@@ -1,9 +1,9 @@
 [gd_scene format=3 uid="uid://b2xrsj1bs3uqo"]
 
-[ext_resource type="PackedScene" uid="uid://cbihbbt0oeqsb" path="res://Player.tscn" id="1_ig7tw"]
-[ext_resource type="PackedScene" uid="uid://ceoodsh3k7tj5" path="res://Enemy.tscn" id="3_h2yge"]
-[ext_resource type="Script" uid="uid://cbesuljs4735d" path="res://hud.gd" id="4_1bvp3"]
-[ext_resource type="PackedScene" uid="uid://bhtbuhewhw6wf" path="res://ground.tscn" id="5_lquwl"]
+[ext_resource type="PackedScene" uid="uid://cbihbbt0oeqsb" path="res://tscns/Player.tscn" id="1_ig7tw"]
+[ext_resource type="PackedScene" uid="uid://ceoodsh3k7tj5" path="res://tscns/Enemy.tscn" id="3_h2yge"]
+[ext_resource type="Script" uid="uid://cbesuljs4735d" path="res://scripts/hud.gd" id="4_1bvp3"]
+[ext_resource type="PackedScene" uid="uid://bhtbuhewhw6wf" path="res://tscns/ground.tscn" id="5_lquwl"]
 
 [node name="Main" type="Node2D" unique_id=1044733990]
 

@@ -16,7 +16,7 @@ var melee_cooldown = 0.0
 var melee_delay = 1
 
 # ------------------- УРОН -------------------
-func take_damage(damage):
+func take_damage(damage: int):
 	print("Игрок атакован")
 	health -= damage
 	print("player hp:", health)
@@ -30,19 +30,24 @@ func die():
 
 # ------------------- АТАКА -------------------
 func attack():
-	if melee_scene == null:
-		print("melee_scene не задан")
-		return
-
 	var hit = melee_scene.instantiate()
 
-	var offset = 30
+	var damage = 5
+	var attack_range = 30
+
+	if weapon != null:
+		damage = weapon.damage
+		attack_range = weapon.attack_range
+
+	var offset = attack_range
 	if facing_direction == -1:
-		offset = -30
-	else:
-		offset = 30
+		offset = -attack_range
 
 	hit.global_position = global_position + Vector2(offset, 0)
+
+	# ВОТ ТУТ МАГИЯ 👇
+	hit.damage = damage
+
 	get_parent().add_child(hit)
 
 # ------------------- ПРЫЖОК -------------------
@@ -109,6 +114,14 @@ func _use_dash(delta, direction):
 
 	if dash_cooldown_timer > 0:
 		dash_cooldown_timer -= delta
+		
+		
+		
+		
+		
+		
+		
+		
 
 # ------------------- ПУССSICS -------------------
 func _physics_process(delta):

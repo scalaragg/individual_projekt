@@ -1,17 +1,20 @@
 extends Area2D
 
-@export var damage = 5
-@export var time_alive = 0.1
+@export var damage: int = 5
+var effects: Array[String] = []
 
-var timer = 0.0
+@export var time_alive: float = 0.1
+var timer: float = 0.0
+
 
 func _ready():
 	timer = time_alive
 	print("melee ready")
 
 func _on_body_entered(body):
-	print("melee touched: ", body.name)
-	print("groups: ", body.get_groups())
+	if body.is_in_group("enemy"):
+		if body.has_method("take_damage"):
+			body.take_damage(damage)
 
 	if body.is_in_group("enemy"):
 		if body.has_method("take_damage"):

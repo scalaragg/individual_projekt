@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://brk2an2g7aatl"
-path="res://.godot/imported/ground 384x48.png-d122c6932cf0de1994f716f68bcab24a.ctex"
+uid="uid://b83uu714sxr3m"
+path="res://.godot/imported/seamless_pattern_16x16px_SpriteSheet_ 549.png-045d2a3500fe5f3a322379df0365f84e.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://ground 384x48.png"
-dest_files=["res://.godot/imported/ground 384x48.png-d122c6932cf0de1994f716f68bcab24a.ctex"]
+source_file="res://assets/seamless_pattern_16x16px_SpriteSheet_ 549.png"
+dest_files=["res://.godot/imported/seamless_pattern_16x16px_SpriteSheet_ 549.png-045d2a3500fe5f3a322379df0365f84e.ctex"]
 
 [params]
 

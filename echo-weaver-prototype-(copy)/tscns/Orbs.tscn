@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://bla6q46k5lek4"]
 
-[ext_resource type="Script" uid="uid://dybf7buebpxu3" path="res://Orbs.gd" id="1_tailt"]
+[ext_resource type="Script" uid="uid://dybf7buebpxu3" path="res://scripts/Orbs.gd" id="1_7n20r"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ajbm3"]
 
@@ -10,7 +10,7 @@
 radius = 97.020615
 
 [node name="Orbs" type="CharacterBody2D" unique_id=1524022052]
-script = ExtResource("1_tailt")
+script = ExtResource("1_7n20r")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1309427359]
 shape = SubResource("RectangleShape2D_ajbm3")

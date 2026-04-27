@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://ceoodsh3k7tj5"]
 
-[ext_resource type="Script" uid="uid://q2txvc7msx1k" path="res://character_body_2d.gd" id="1_tt7e2"]
-[ext_resource type="PackedScene" uid="uid://bla6q46k5lek4" path="res://Orbs.tscn" id="2_s7bn3"]
+[ext_resource type="Script" uid="uid://q2txvc7msx1k" path="res://scripts/character_body_2d.gd" id="1_tt7e2"]
+[ext_resource type="PackedScene" uid="uid://bla6q46k5lek4" path="res://tscns/Orbs.tscn" id="2_s7bn3"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_s7bn3"]
 size = Vector2(32, 64)
