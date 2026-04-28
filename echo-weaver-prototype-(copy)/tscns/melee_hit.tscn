@@ -1,4 +1,4 @@
-[gd_scene format=3 uid="uid://642eo4q8xwfs"]
+[gd_scene load_steps=4 format=3 uid="uid://642eo4q8xwfs"]
 
 [ext_resource type="Script" uid="uid://do86kpv58pht8" path="res://scripts/melee_hit.gd" id="1_nrslq"]
 
@@ -7,14 +7,14 @@ size = Vector2(20, 10)
 
 [sub_resource type="CanvasTexture" id="CanvasTexture_kgeyk"]
 
-[node name="Area2D" type="Area2D" unique_id=1208999446]
+[node name="Area2D" type="Area2D"]
 script = ExtResource("1_nrslq")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=215033116]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_20is6")
 debug_color = Color(2.3102762e-06, 0.5899737, 0.7561201, 0.41960785)
 
-[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1073682763]
+[node name="Sprite2D" type="Sprite2D" parent="."]
 modulate = Color(1, 0, 0, 1)
 scale = Vector2(20, 10)
 texture = SubResource("CanvasTexture_kgeyk")

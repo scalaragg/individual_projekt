@@ -32,12 +32,12 @@ func die():
 func attack():
 	var hit = melee_scene.instantiate()
 
-	var damage = 5
-	var attack_range = 30
+	var damage = weapon.damage
+	var attack_range = weapon.attack_range
 
-	if weapon != null:
-		damage = weapon.damage
-		attack_range = weapon.attack_range
+	if weapon == null:
+		damage = 5
+		attack_range = 20
 
 	var offset = attack_range
 	if facing_direction == -1:
@@ -47,7 +47,8 @@ func attack():
 
 	# ВОТ ТУТ МАГИЯ 👇
 	hit.damage = damage
-
+	print("дальность атаки ",attack_range, " Урон: ",
+	 damage)
 	get_parent().add_child(hit)
 
 # ------------------- ПРЫЖОК -------------------
