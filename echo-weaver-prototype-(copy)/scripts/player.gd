@@ -125,6 +125,9 @@ func _use_dash(delta, direction):
 		
 
 # ------------------- ПУССSICS -------------------
+
+	
+
 func _physics_process(delta):
 
 	if Input.is_action_just_pressed("ui_cancel"):
@@ -185,6 +188,15 @@ func _physics_process(delta):
 			velocity.x = move_toward(velocity.x, direction * current_speed, acceleration * delta)
 		else:
 			velocity.x = move_toward(velocity.x, 0, friction * delta)
+	if velocity.x != 0:
+		if direction == 1:
+			print("Анимация вправо")
+			get_node("AnimatedSprite2D").play("move_right")
+		elif direction == -1:
+			print("Анимация влево")
+			get_node("AnimatedSprite2D").play("move_left")
+	else:
+		get_node("AnimatedSprite2D").play("idle")
 
 	# ------------------- Атак джокера -------------------
 	melee_cooldown -= delta
