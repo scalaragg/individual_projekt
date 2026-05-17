@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="WeaponData" format=3 uid="uid://b1r0l6yea7n20"]
+
+[ext_resource type="Script" uid="uid://ctshf1pcdvfac" path="res://resources/weapon_data.gd" id="1_vln4u"]
+
+[resource]
+script = ExtResource("1_vln4u")
+weapon_type = 1
+weapon_name = "Hammer"
+damage = 25
+attack_range = 30.0
+attack_cooldown = 2.0
+metadata/_custom_type_script = "uid://ctshf1pcdvfac"

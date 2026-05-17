@@ -16,10 +16,6 @@ func _on_body_entered(body):
 		if body.has_method("take_damage"):
 			body.take_damage(damage)
 
-	if body.is_in_group("enemy"):
-		if body.has_method("take_damage"):
-			body.take_damage(damage)
-
 func _physics_process(delta):
 	timer -= delta
 	if timer <= 0:

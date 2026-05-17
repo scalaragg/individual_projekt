@@ -1,6 +1,14 @@
 extends Resource
 class_name WeaponData
 
+enum WeaponType {
+	SWORD,
+	HAMMER,
+	SPEAR
+}
+
+@export var weapon_type: WeaponType
+
 @export var weapon_name: String = "Sword"
 @export var damage: int = 10
 @export var attack_range: float = 50.0

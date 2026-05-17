@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="WeaponData" format=3 uid="uid://de4bbe1ccfgyi"]
+
+[ext_resource type="Script" uid="uid://ctshf1pcdvfac" path="res://resources/weapon_data.gd" id="1_jk5lq"]
+
+[resource]
+script = ExtResource("1_jk5lq")
+weapon_type = 2
+weapon_name = "Spear"
+attack_range = 70.0
+attack_cooldown = 1.0
+metadata/_custom_type_script = "uid://ctshf1pcdvfac"

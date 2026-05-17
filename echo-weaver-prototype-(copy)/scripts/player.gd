@@ -1,5 +1,9 @@
 extends CharacterBody2D
 
+
+const SWORD = preload("res://resources/weapons/sword.tres")
+const HAMMER = preload("res://resources/weapons/hammer.tres")
+const SPEAR = preload("res://resources/weapons/spear.tres")
 @export var weapon: WeaponData
 @export var speed: float = 300.0
 @export var acceleration: float = 5000.0
@@ -32,23 +36,25 @@ func die():
 func attack():
 	var hit = melee_scene.instantiate()
 
-	var damage = weapon.damage
-	var attack_range = weapon.attack_range
+	var damage = 5
+	var attack_range = 20
 
-	if weapon == null:
-		damage = 5
-		attack_range = 20
+	if weapon != null:
+		damage = weapon.damage
+		attack_range = weapon.attack_range
+		melee_delay = weapon.attack_cooldown
 
 	var offset = attack_range
+
 	if facing_direction == -1:
 		offset = -attack_range
 
 	hit.global_position = global_position + Vector2(offset, 0)
 
-	# ВОТ ТУТ МАГИЯ 👇
 	hit.damage = damage
-	print("дальность атаки ",attack_range, " Урон: ",
-	 damage)
+
+	print("дальность атаки:", attack_range, " урон:", damage)
+
 	get_parent().add_child(hit)
 
 # ------------------- ПРЫЖОК -------------------
@@ -129,6 +135,17 @@ func _use_dash(delta, direction):
 	
 
 func _physics_process(delta):
+	if Input.is_action_just_pressed("weapon_1"):
+		weapon = SWORD
+		print("Экипирован меч")
+
+	if Input.is_action_just_pressed("weapon_2"):
+		weapon = HAMMER
+		print("Экипирован молот")
+
+	if Input.is_action_just_pressed("weapon_3"):
+		weapon = SPEAR
+		print("Экипировано копьё")
 
 	if Input.is_action_just_pressed("ui_cancel"):
 		get_tree().change_scene_to_file("res://menu.tscn")
@@ -190,10 +207,10 @@ func _physics_process(delta):
 			velocity.x = move_toward(velocity.x, 0, friction * delta)
 	if velocity.x != 0:
 		if direction == 1:
-			print("Анимация вправо")
+		
 			get_node("AnimatedSprite2D").play("move_right")
 		elif direction == -1:
-			print("Анимация влево")
+		
 			get_node("AnimatedSprite2D").play("move_left")
 	else:
 		get_node("AnimatedSprite2D").play("idle")

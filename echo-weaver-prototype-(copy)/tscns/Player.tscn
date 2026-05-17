@@ -1,6 +1,7 @@
-[gd_scene load_steps=20 format=3 uid="uid://cbihbbt0oeqsb"]
+[gd_scene format=3 uid="uid://cbihbbt0oeqsb"]
 
 [ext_resource type="Script" uid="uid://b2u2trq4qbq1s" path="res://scripts/player.gd" id="1_xhfnw"]
+[ext_resource type="Resource" uid="uid://b1r0l6yea7n20" path="res://resources/weapons/hammer.tres" id="2_7o0af"]
 [ext_resource type="Texture2D" uid="uid://dowph5nkfyrsi" path="res://assets/Frame 5.png" id="3_2y7wr"]
 [ext_resource type="PackedScene" uid="uid://642eo4q8xwfs" path="res://tscns/melee_hit.tscn" id="3_kne1u"]
 [ext_resource type="Texture2D" uid="uid://b4n8m0hcj8v4t" path="res://assets/move_left.png" id="4_rmf6e"]
@@ -111,14 +112,15 @@ animations = [{
 "speed": 5.0
 }]
 
-[node name="Player" type="CharacterBody2D" groups=["player"]]
+[node name="Player" type="CharacterBody2D" unique_id=2099586112 groups=["player"]]
 script = ExtResource("1_xhfnw")
+weapon = ExtResource("2_7o0af")
 melee_scene = ExtResource("3_kne1u")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=939819596]
 shape = SubResource("RectangleShape2D_kpjcp")
 
-[node name="Camera2D" type="Camera2D" parent="."]
+[node name="Camera2D" type="Camera2D" parent="." unique_id=1151919118]
 position = Vector2(2, 0)
 limit_enabled = false
 limit_left = 1000
@@ -128,10 +130,10 @@ limit_bottom = 500
 position_smoothing_enabled = true
 position_smoothing_speed = 10.0
 
-[node name="Area2D2" parent="." instance=ExtResource("3_kne1u")]
+[node name="Area2D2" parent="." unique_id=1632675009 instance=ExtResource("3_kne1u")]
 visible = false
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=758212405]
 sprite_frames = SubResource("SpriteFrames_q8m7j")
 animation = &"idle"
 autoplay = "idle"
