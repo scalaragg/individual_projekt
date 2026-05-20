@@ -31,8 +31,8 @@ func _physics_process(delta: float) -> void:
 		var distance = global_position.distance_to(player.global_position)
 
 		if distance <= 61:
-			if player.has_method("add_thread"):
+			if player.has_method("add_orb"):
 				player.add_orb(orb_type)
-			queue_free()
+				queue_free()
 
 	move_and_slide()

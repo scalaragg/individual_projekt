@@ -10,7 +10,12 @@ enum WeaponType {
 @export var weapon_type: WeaponType
 
 @export var weapon_name: String = "Sword"
+
 @export var damage: int = 10
 @export var attack_range: float = 50.0
-@export var attack_cooldown: float = 0.6
-@export var effects: Array[String] = []
+@export var attack_cooldown: float = 0.5
+
+@export var knockback: float = 200.0
+
+@export var orb_slots: int = 3
+@export var inserted_orbs: Array[String] = []

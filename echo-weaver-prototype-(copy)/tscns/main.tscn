@@ -3,6 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://cbihbbt0oeqsb" path="res://tscns/Player.tscn" id="1_ig7tw"]
 [ext_resource type="PackedScene" uid="uid://ceoodsh3k7tj5" path="res://tscns/Enemy.tscn" id="3_h2yge"]
 [ext_resource type="Script" uid="uid://cbesuljs4735d" path="res://scripts/hud.gd" id="4_1bvp3"]
+[ext_resource type="PackedScene" uid="uid://bla6q46k5lek4" path="res://tscns/Orbs.tscn" id="5_d36ai"]
 [ext_resource type="PackedScene" uid="uid://bhtbuhewhw6wf" path="res://tscns/ground.tscn" id="5_lquwl"]
 
 [node name="Main" type="Node2D" unique_id=1044733990]
@@ -96,3 +97,9 @@ position = Vector2(676, 50)
 
 [node name="ground" parent="." unique_id=2030380076 instance=ExtResource("5_lquwl")]
 position = Vector2(7, 55)
+
+[node name="Orbs2" parent="." unique_id=1524022052 instance=ExtResource("5_d36ai")]
+position = Vector2(529, -77)
+
+[node name="Orbs" parent="." unique_id=152044864 instance=ExtResource("5_d36ai")]
+position = Vector2(566, -210)

@@ -3,6 +3,7 @@ extends CharacterBody2D
 @export var health = 20
 @export var thread_scene: PackedScene
 @export var speed = 200
+var knockback_velocity = Vector2.ZERO
 
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 var player_in_range = false
@@ -18,6 +19,9 @@ func take_damage(damage):
 
 	if health <= 0:
 		die()
+		
+func apply_knockback(force):
+	knockback_velocity = force
 
 func die():
 	if thread_scene:
@@ -40,6 +44,9 @@ func _on_area_2d_body_exited(body: Node2D) -> void:
 		player_in_range = false
 		print("ИГРОК ВЫШЕЛ")
 
+
+
+
 func _physics_process(delta: float) -> void:
 	# гравитация
 	if not is_on_floor():
@@ -61,5 +68,7 @@ func _physics_process(delta: float) -> void:
 			player.take_damage(10)
 			attack_timer = attack_cooldown
 			
+	velocity += knockback_velocity
+	knockback_velocity = knockback_velocity.lerp(Vector2.ZERO, 8 * delta)
 			
 	move_and_slide()

@@ -7,6 +7,6 @@ script = ExtResource("1_vln4u")
 weapon_type = 1
 weapon_name = "Hammer"
 damage = 25
-attack_range = 30.0
 attack_cooldown = 2.0
+knockback = 500.0
 metadata/_custom_type_script = "uid://ctshf1pcdvfac"
