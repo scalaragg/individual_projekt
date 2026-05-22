@@ -202,11 +202,15 @@ func _ready():
 	inventory.append(SPEAR)
 
 	equip_weapon(0)
-
-# ------------------- ПУССSICS -------------------
-
+	
+# ----------------- heal ----------------------
+func heal(amount):
+	health += amount
+	print("heal:", amount)
+	
 	
 
+# ------------------- ПУССSICS -------------------
 func _physics_process(delta):
 	if Input.is_action_just_pressed("weapon_1"):
 		equip_weapon(0)
@@ -223,8 +227,8 @@ func _physics_process(delta):
 	if Input.is_action_just_pressed("ui_page_down"):
 		insert_orb("green")
 
-	if Input.is_action_just_pressed("ui_cancel"):
-		get_tree().change_scene_to_file("res://menu.tscn")
+	if Input.is_action_just_pressed("esc"):
+		get_tree().change_scene_to_file("res://tscns/menu.tscn")
 
 	# ГРАВИТАЦИЯ
 	if not is_on_floor():
@@ -235,7 +239,6 @@ func _physics_process(delta):
 		jump_buffer_timer = jump_buffer_time
 	else:
 		jump_buffer_timer -= delta
-
 	if is_on_floor():
 		left_jump = max_jump
 		coyto_timer = on_floar_time
@@ -288,7 +291,7 @@ func _physics_process(delta):
 		elif direction == -1:
 		
 			get_node("AnimatedSprite2D").play("move_left")
-	else:
+	elif was_on_floor:
 		get_node("AnimatedSprite2D").play("idle")
 
 	# ------------------- Атак джокера -------------------

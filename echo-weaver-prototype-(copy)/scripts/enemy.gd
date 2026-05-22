@@ -1,74 +1,170 @@
 extends CharacterBody2D
 
+@onready var sprite = $Sprite2D
+
 @export var health = 20
-@export var thread_scene: PackedScene
+@export var orb_scene: PackedScene
 @export var speed = 200
-var knockback_velocity = Vector2.ZERO
+@export var damage_text_scene: PackedScene
 
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
+
 var player_in_range = false
 var player = null
 
 var attack_cooldown = 1.0
 var attack_timer = 0.0
 
+var speed_multiplier = 1.0
+var knockback_velocity = Vector2.ZERO
+
+
+# ---------------- FLASH ----------------
+
+func flash():
+
+	if sprite == null:
+		return
+
+	sprite.modulate = Color.WHITE
+
+	await get_tree().create_timer(0.08).timeout
+
+	if is_instance_valid(sprite):
+		sprite.modulate = Color.WHITE
+
+
+# ---------------- DAMAGE TEXT ----------------
+
+func spawn_damage_text(damage):
+
+	if damage_text_scene == null:
+		return
+
+	var text = damage_text_scene.instantiate()
+
+	text.text = str(damage)
+
+	text.global_position = global_position + Vector2(0, -20)
+
+	get_parent().add_child(text)
+
+
+# ---------------- DAMAGE ----------------
+
 func take_damage(damage):
+
 	print("Враг атакован")
+
 	health -= damage
-	print("enemy hp: ", health)
+
+	spawn_damage_text(damage)
+
+	flash()
+
+	print("enemy hp:", health)
 
 	if health <= 0:
 		die()
-		
+
+
+# ---------------- KNOCKBACK ----------------
+
 func apply_knockback(force):
+
 	knockback_velocity = force
 
+
+# ---------------- SLOW ----------------
+
+func slow(power, duration):
+
+	speed_multiplier = power
+
+	await get_tree().create_timer(duration).timeout
+
+	if is_instance_valid(self):
+		speed_multiplier = 1.0
+
+
+# ---------------- DIE ----------------
+
 func die():
-	if thread_scene:
-		var thread = thread_scene.instantiate()
-		thread.global_position = global_position
-		get_parent().add_child(thread)
+
+	if orb_scene != null:
+
+		var orb = orb_scene.instantiate()
+
+		orb.global_position = global_position
+
+		get_parent().add_child(orb)
+
 	queue_free()
 
-func _ready():
-	player = get_tree().get_first_node_in_group("player")
-	print("нашёл игрока:", player)
 
-func _on_area_2d_body_entered(body: Node2D) -> void:
+# ---------------- READY ----------------
+
+func _ready():
+
+	player = get_tree().get_first_node_in_group("player")
+
+
+# ---------------- PLAYER DETECT ----------------
+
+func _on_area_2d_body_entered(body):
+
 	if body.is_in_group("player"):
 		player_in_range = true
-		print("ИГРОК ВОШЕЛ")
 
-func _on_area_2d_body_exited(body: Node2D) -> void:
+
+func _on_area_2d_body_exited(body):
+
 	if body.is_in_group("player"):
 		player_in_range = false
-		print("ИГРОК ВЫШЕЛ")
 
 
+# ---------------- PHYSICS ----------------
 
+func _physics_process(delta):
 
-func _physics_process(delta: float) -> void:
-	# гравитация
+	# gravity
 	if not is_on_floor():
 		velocity.y += gravity * delta
 
-	# движение к игроку
+	# movement
 	if player_in_range and player != null:
-		var direction = (player.global_position - global_position).normalized()
-		velocity.x = direction.x * speed
-		
+
+		var direction = (
+			player.global_position - global_position
+		).normalized()
+
+		velocity.x = direction.x * speed * speed_multiplier
+
 	else:
 		velocity.x = 0
-			
+
+	# attack
 	attack_timer -= delta
+
 	if player_in_range and player != null:
-		var distance = global_position.distance_to(player.global_position)
-		
+
+		var distance = global_position.distance_to(
+			player.global_position
+		)
+
 		if distance < 40 and attack_timer <= 0:
-			player.take_damage(10)
+
+			if player.has_method("take_damage"):
+				player.take_damage(10)
+
 			attack_timer = attack_cooldown
-			
+
+	# knockback
 	velocity += knockback_velocity
-	knockback_velocity = knockback_velocity.lerp(Vector2.ZERO, 8 * delta)
-			
+
+	knockback_velocity = knockback_velocity.lerp(
+		Vector2.ZERO,
+		12 * delta
+	)
+
 	move_and_slide()

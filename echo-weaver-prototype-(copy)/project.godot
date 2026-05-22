@@ -23,6 +23,7 @@ config/icon="res://assets/icon.svg"
 
 player="main player"
 enemy="враг, уёбище"
+camera=""
 
 [input]
 

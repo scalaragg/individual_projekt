@@ -13,6 +13,7 @@ position = Vector2(2, -5)
 
 [node name="Enemy" parent="." unique_id=254797417 instance=ExtResource("3_h2yge")]
 position = Vector2(1399, -169)
+health = 40
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=91065264]
 

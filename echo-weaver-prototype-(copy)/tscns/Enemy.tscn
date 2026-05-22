@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://q2txvc7msx1k" path="res://scripts/enemy.gd" id="1_tt7e2"]
 [ext_resource type="PackedScene" uid="uid://bla6q46k5lek4" path="res://tscns/Orbs.tscn" id="2_s7bn3"]
+[ext_resource type="PackedScene" uid="uid://b2fnkakkhvjfw" path="res://tscns/damage_text.tscn" id="3_u8qfd"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_s7bn3"]
 size = Vector2(32, 64)
@@ -13,7 +14,8 @@ radius = 243.00206
 
 [node name="Enemy" type="CharacterBody2D" unique_id=1407349446 groups=["enemy"]]
 script = ExtResource("1_tt7e2")
-thread_scene = ExtResource("2_s7bn3")
+orb_scene = ExtResource("2_s7bn3")
+damage_text_scene = ExtResource("3_u8qfd")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1039893961]
 shape = SubResource("RectangleShape2D_s7bn3")
