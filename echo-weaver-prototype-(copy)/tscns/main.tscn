@@ -38,45 +38,29 @@ offset_right = 60.0
 offset_bottom = 43.0
 text = "Hp"
 
-[node name="RedLabel" type="Label" parent="CanvasLayer/Control" unique_id=2006700154]
+[node name="OrbLabel" type="Label" parent="CanvasLayer/Control" unique_id=1955568488]
 layout_mode = 0
 offset_left = 20.0
-offset_top = 50.0
+offset_top = 40.0
 offset_right = 60.0
-offset_bottom = 73.0
-text = "Pulse"
+offset_bottom = 63.0
+text = "Orb"
 
-[node name="GreenLabel" type="Label" parent="CanvasLayer/Control" unique_id=1204166112]
+[node name="WeaponLabel" type="Label" parent="CanvasLayer/Control" unique_id=1356050674]
+layout_mode = 0
+offset_left = 20.0
+offset_top = 60.0
+offset_right = 84.0
+offset_bottom = 83.0
+text = "Weapon"
+
+[node name="SlotLabel" type="Label" parent="CanvasLayer/Control" unique_id=1860302368]
 layout_mode = 0
 offset_left = 20.0
 offset_top = 80.0
-offset_right = 68.0
-offset_bottom = 103.0
-text = "FLow"
-
-[node name="BlueLabel" type="Label" parent="CanvasLayer/Control" unique_id=1125238451]
-layout_mode = 0
-offset_left = 20.0
-offset_top = 110.0
 offset_right = 60.0
-offset_bottom = 133.0
-text = "Edge"
-
-[node name="QueuLabel" type="Label" parent="CanvasLayer/Control" unique_id=2143427385]
-layout_mode = 0
-offset_left = 20.0
-offset_top = 160.0
-offset_right = 72.0
-offset_bottom = 183.0
-text = "Queue"
-
-[node name="SealedLabel" type="Label" parent="CanvasLayer/Control" unique_id=2032142957]
-layout_mode = 0
-offset_left = 20.0
-offset_top = 190.0
-offset_right = 71.0
-offset_bottom = 213.0
-text = "Sealed"
+offset_bottom = 103.0
+text = "Slot"
 
 [node name="ground7" parent="." unique_id=1894136459 instance=ExtResource("5_lquwl")]
 position = Vector2(172, -120)

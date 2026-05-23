@@ -24,9 +24,70 @@ var current_speed = speed
 var melee_cooldown = 0.0
 var melee_delay = 1
 
+#--------------- Поднимание предметов ----------
+
+func pickup_weapon(new_weapon):
+
+	if new_weapon == null:
+		return
+# DROPPING OLD WEAPON
+
+	if weapon != null:
+		var dropped_scene = preload(
+			"res://tscns/weapon_pickup.tscn"
+		)
+		var dropped = dropped_scene.instantiate()
+		dropped.weapon_data = weapon
+		dropped.global_position = global_position + Vector2(
+			30 * facing_direction,
+			0
+		)
+		get_parent().add_child(dropped)
+	# EQUIP NEW
+	weapon = new_weapon
+	print("picked weapon:", weapon.weapon_name)
+
+
+# ---------------- ORBS ----------------
+
+var stored_orbs: Array[String] = []
+
+var max_stored_orbs = 5
+
+func add_orb(orb_type):
+
+	if stored_orbs.size() >= max_stored_orbs:
+		print("orb inventory full")
+		return
+
+	stored_orbs.append(orb_type)
+
+	print("picked orb:", orb_type)
+	print("stored:", stored_orbs)
+
+
+func insert_next_orb():
+
+	if weapon == null:
+		return
+
+	if stored_orbs.size() <= 0:
+		print("нет орбов")
+		return
+
+	if weapon.inserted_orbs.size() >= weapon.max_orb_slots:
+
+		# удаляем первый orb
+		weapon.inserted_orbs.pop_front()
+
+	var orb = stored_orbs.pop_front()
+
+	weapon.inserted_orbs.append(orb)
+
+	print("weapon:", weapon.weapon_name)
+	print("inserted:", weapon.inserted_orbs)
 
 #---------- equip weapon func --------------
-
 
 
 func equip_weapon(index):
@@ -122,23 +183,6 @@ var left_jump = 0
 var jump_buffer_time: float = 0.1
 var jump_buffer_timer: float = 0.0
 
-# ------------------- ОРБЫ (я их факал)-------------------
-var red_orbs = 0
-var green_orbs = 0
-var blue_orbs = 0
-
-func add_orb(orb_type):
-	print("picked: ", orb_type)
-
-	if orb_type == "red":
-		red_orbs += 1
-	elif orb_type == "green":
-		green_orbs += 1
-	elif orb_type == "blue":
-		blue_orbs += 1
-
-	print("pulse: ", red_orbs, " | flow: ", green_orbs, " | edge: ", blue_orbs)
-
 # ------------------- СОСТОЯНИЕ ПОЛА -------------------
 var on_floar_time: float = 0.1
 var coyto_timer: float = 0.0
@@ -209,6 +253,7 @@ func _ready():
 func heal(amount):
 	health += amount
 	print("heal:", amount)
+	print("hp:", health)
 	
 	
 
@@ -223,11 +268,10 @@ func _physics_process(delta):
 	if Input.is_action_just_pressed("weapon_3"):
 		equip_weapon(2)
 		
-	if Input.is_action_just_pressed("ui_page_up"):
-		insert_orb("red")
+	# INSERT ORB
 
-	if Input.is_action_just_pressed("ui_page_down"):
-		insert_orb("green")
+	if Input.is_action_just_pressed("ui_page_up"):
+		insert_next_orb()
 
 	if Input.is_action_just_pressed("esc"):
 		get_tree().change_scene_to_file("res://tscns/menu.tscn")
