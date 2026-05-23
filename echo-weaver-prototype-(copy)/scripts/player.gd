@@ -24,6 +24,7 @@ var current_speed = speed
 var melee_cooldown = 0.0
 var melee_delay = 1
 
+
 #---------- equip weapon func --------------
 
 
@@ -63,6 +64,7 @@ func attack():
 
 	if melee_scene == null:
 		return
+		
 
 	var hit = melee_scene.instantiate()
 	var damage = 5
@@ -301,6 +303,7 @@ func _physics_process(delta):
 		if melee_cooldown <= 0:
 			attack()
 			melee_cooldown = melee_delay
+	
 
 	was_on_floor = is_on_floor()
 	move_and_slide()

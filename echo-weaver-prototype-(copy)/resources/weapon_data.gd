@@ -1,6 +1,7 @@
 extends Resource
 class_name WeaponData
 
+
 enum WeaponType {
 	SWORD,
 	HAMMER,
@@ -17,5 +18,6 @@ enum WeaponType {
 
 @export var knockback: float = 200.0
 
+@export var max_orb_slots = 3
 @export var orb_slots: int = 3
 @export var inserted_orbs: Array[String] = []
