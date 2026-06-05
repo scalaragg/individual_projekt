@@ -4,6 +4,12 @@
 
 [resource]
 script = ExtResource("1_g5ko2")
+weapon_name = null
+weapon_type = null
+damage = null
+attack_range = null
 attack_cooldown = 0.4
 knockback = 150.0
+max_orb_slots = null
+inserted_orbs = null
 metadata/_custom_type_script = "uid://ctshf1pcdvfac"

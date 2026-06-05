@@ -21,10 +21,12 @@ scale = Vector2(1, 1.16)
 
 [node name="Label" type="Label" parent="." unique_id=1416056849]
 layout_mode = 0
-offset_left = -24.747494
-offset_top = -20.619099
-offset_right = 124.2525
-offset_bottom = 13.380901
+offset_left = -22.474766
+offset_top = -20.959915
+offset_right = 498.52524
+offset_bottom = 94.040085
+scale = Vector2(0.17, 0.17)
+theme_override_font_sizes/font_size = 84
 text = "Echo Weaver"
 
 [node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=859292081]

@@ -270,7 +270,7 @@ func _physics_process(delta):
 		
 	# INSERT ORB
 
-	if Input.is_action_just_pressed("ui_page_up"):
+	if Input.is_action_just_pressed("Q"):
 		insert_next_orb()
 
 	if Input.is_action_just_pressed("esc"):

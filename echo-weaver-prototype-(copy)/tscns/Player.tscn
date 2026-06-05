@@ -249,7 +249,7 @@ melee_scene = ExtResource("3_kne1u")
 shape = SubResource("RectangleShape2D_kpjcp")
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=1151919118 groups=["camera"]]
-position = Vector2(2, 0)
+zoom = Vector2(1.5, 1.5)
 limit_enabled = false
 limit_left = 1000
 limit_top = -500
