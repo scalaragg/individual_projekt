@@ -8,16 +8,15 @@ const SPEAR = preload("res://resources/weapons/spear.tres")
 var inventory: Array[WeaponData] = []
 
 var current_weapon_index = 0
-var weapon: WeaponData
+var weapon = null
 
-@export var speed: float = 300.0
+@export var speed: float = 200.0
 @export var acceleration: float = 5000.0
 @export var friction: float = 3000.0
-@export var jump_velocity: float = -400.0
 @export var health = 100
 
 var is_run = false
-var run_speed: float = 500.0
+var run_speed: float = 350.0
 var current_speed = speed
 
 @export var melee_scene: PackedScene
@@ -123,24 +122,25 @@ func die():
 # ------------------- АТАКА -------------------
 func attack():
 
-	if melee_scene == null:
+	if weapon == null:
+		print("Нет оружия")
 		return
-		
+
+	if melee_scene == null:
+		print("melee_scene не задан")
+		return
 
 	var hit = melee_scene.instantiate()
-	var damage = 5
-	var attack_range = 20
-	var knockback = 100.0
 
-	if weapon != null:
-		damage = weapon.damage
-		attack_range = weapon.attack_range
-		knockback = weapon.knockback
+	var damage = weapon.damage
+	var attack_range = weapon.attack_range
+	var knockback = weapon.knockback
 
 	var offset = attack_range
 
 	if facing_direction == -1:
 		offset = -attack_range
+		
 	var hit_position = offset
 	var collision = hit.get_node("CollisionShape2D")
 	var shape = collision.shape
@@ -177,17 +177,22 @@ func attack():
 	print("орбы:", weapon.inserted_orbs)
 
 # ------------------- ПРЫЖОК -------------------
-var max_jump = 2
-var left_jump = 0
+@export var jump_velocity: float = -400.0
 
-var jump_buffer_time: float = 0.1
+var max_air_jumps: int = 1
+var air_jumps_left: int = 1
+
+var coyote_time: float = 0.12
+var coyote_timer: float = 0.0
+
+var jump_buffer_time: float = 0.12
 var jump_buffer_timer: float = 0.0
 
-# ------------------- СОСТОЯНИЕ ПОЛА -------------------
-var on_floar_time: float = 0.1
-var coyto_timer: float = 0.0
-var was_on_floor = true
+var second_jump_multiplier: float = 0.75
 
+func do_jump(power_multiplier: float = 1.0):
+	velocity.y = jump_velocity * power_multiplier
+	jump_buffer_timer = 0.0
 # ------------------- НАПРАВЛЕНИЕ -------------------
 var facing_direction: float = 1.0
 var dash_direction: float = 1.0
@@ -242,12 +247,11 @@ func insert_orb(orb_type: String):
 	print(weapon.inserted_orbs)
 		
 func _ready():
+	inventory.clear()
+	weapon = null
+	current_weapon_index = -1
 
-	inventory.append(SWORD)
-	inventory.append(HAMMER)
-	inventory.append(SPEAR)
-
-	equip_weapon(0)
+	print("Старт без оружия")
 	
 # ----------------- heal ----------------------
 func heal(amount):
@@ -280,30 +284,34 @@ func _physics_process(delta):
 	if not is_on_floor():
 		velocity.y += gravity * delta
 
-	# ПРЫЖОК
+	# ------------------- JUMP -------------------
+
+	# jump buffer
 	if Input.is_action_just_pressed("jump"):
 		jump_buffer_timer = jump_buffer_time
 	else:
 		jump_buffer_timer -= delta
+
+	# floor / coyote / reset air jumps
 	if is_on_floor():
-		left_jump = max_jump
-		coyto_timer = on_floar_time
+		coyote_timer = coyote_time
+		air_jumps_left = max_air_jumps
 	else:
-		coyto_timer -= delta
+		coyote_timer -= delta
 
-	if was_on_floor and not is_on_floor() and left_jump == max_jump:
-		left_jump = 1
+	# jump logic
+	if jump_buffer_timer > 0.0:
 
-	if jump_buffer_timer > 0 and (coyto_timer > 0 or left_jump > 0):
-		if left_jump == 1:
-			velocity.y = jump_velocity * 0.7
-		else:
-			velocity.y = jump_velocity
+		# обычный прыжок с пола или coyote jump
+		if coyote_timer > 0.0:
+			do_jump()
+			coyote_timer = 0.0
 
-		left_jump -= 1
-		coyto_timer = 0
-		jump_buffer_timer = 0
-
+		# double jump
+		elif air_jumps_left > 0:
+			do_jump(second_jump_multiplier)
+			air_jumps_left -= 1
+		
 	# ДВИЖЕние
 	var direction = Input.get_axis("move_left", "move_right")
 
@@ -332,22 +340,21 @@ func _physics_process(delta):
 			velocity.x = move_toward(velocity.x, 0, friction * delta)
 	if velocity.x != 0:
 		if direction == 1:
-		
 			get_node("AnimatedSprite2D").play("move_right")
 		elif direction == -1:
-		
 			get_node("AnimatedSprite2D").play("move_left")
-	elif was_on_floor:
+	elif velocity.x == 0:
 		get_node("AnimatedSprite2D").play("idle")
+
 
 	# ------------------- Атак джокера -------------------
 	melee_cooldown -= delta
 
 	if Input.is_action_just_pressed("attack"):
-		if melee_cooldown <= 0:
+		if weapon == null:
+			print("Нечем атаковать")
+		elif melee_cooldown <= 0:
 			attack()
-			melee_cooldown = melee_delay
+			melee_cooldown = weapon.attack_cooldown
 	
-
-	was_on_floor = is_on_floor()
 	move_and_slide()
