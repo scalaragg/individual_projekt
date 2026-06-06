@@ -1,0 +1,128 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: Arial, sans-serif;
+    color: #000000;
+    background: #173a92;
+}
+
+.container {
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 24px;
+}
+
+.gallery-card {
+    width: min(100%, 640px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    padding: 22px;
+    border: 1px solid #c5c9d1;
+    border-radius: 12px;
+    background: #f7f7f8;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+}
+
+.title {
+    margin: 0;
+    font-size: clamp(26px, 5vw, 38px);
+    line-height: 1.1;
+    text-align: center;
+    font-weight: 700;
+    color: #2b2f38;
+}
+
+.img-container {
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 14px;
+    overflow: hidden;
+    border: 1px solid #d2d6de;
+    border-radius: 10px;
+    background: #ffffff;
+}
+
+.img-container img {
+    display: block;
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+}
+
+.controller-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.controller-container > button {
+    min-width: 110px;
+    height: 40px;
+    border: 1px solid #b6bcc8;
+    border-radius: 8px;
+    color: #222222;
+    background-color: #173a92;
+    cursor: pointer;
+    font-size: 18px;
+    transition: background-color 0.15s ease, transform 0.15s ease;
+}
+
+.controller-container > button:hover:not(:disabled) {
+    background-color: #2961cf;
+    transform: translateY(-1px);
+}
+
+.controller-container > button:active:not(:disabled) {
+    background-color: #d4d9e3;
+    transform: translateY(0);
+}
+
+.controller-container > button:disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+}
+
+.counter {
+    min-width: 64px;
+    text-align: center;
+    font-weight: 700;
+    color: #363b45;
+}
+
+@media (max-width: 480px) {
+    .container {
+        padding: 12px;
+    }
+
+    .gallery-card {
+        padding: 16px;
+        border-radius: 10px;
+    }
+
+    .img-container {
+        padding: 10px;
+        aspect-ratio: 1 / 1;
+    }
+
+    .controller-container > button {
+        min-width: 92px;
+    }
+}
