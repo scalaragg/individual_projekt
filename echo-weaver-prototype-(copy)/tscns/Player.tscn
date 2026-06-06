@@ -264,7 +264,7 @@ visible = false
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=758212405]
 sprite_frames = SubResource("SpriteFrames_q8m7j")
-animation = &"hit_right"
+animation = &"idle"
 autoplay = "idle"
 
 [connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]

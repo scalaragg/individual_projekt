@@ -247,6 +247,9 @@ func insert_orb(orb_type: String):
 	print(weapon.inserted_orbs)
 		
 func _ready():
+	Engine.time_scale = 1.0
+	
+	
 	inventory.clear()
 	weapon = null
 	current_weapon_index = -1

@@ -3,6 +3,7 @@ extends Area2D
 @export var damage: int = 5
 @export var knockback: float = 100
 @export var time_alive: float = 0.1
+@export var enemy: PackedScene
 
 var effects: Array[String] = []
 var timer = 0.0
@@ -10,6 +11,11 @@ var already_hit = []
 
 func _ready():
 	timer = time_alive
+	
+func hit_stop():
+	Engine.time_scale = 0.05
+	await get_tree().create_timer(0.03, true, false, true).timeout
+	Engine.time_scale = 1.0
 
 func _on_body_entered(body):
 	# ---------------- VALIDATION ----------------
@@ -31,6 +37,7 @@ func _on_body_entered(body):
 		if effect == "red":
 			final_damage += 2
 	body.take_damage(final_damage)
+	await hit_stop()
 	if !is_instance_valid(body):
 		return
 	# ---------------- STUN ----------------
@@ -40,15 +47,7 @@ func _on_body_entered(body):
 		body.stun(stun_time)
 	# ---------------- HITSTOP ----------------
 
-	Engine.time_scale = 0.05
-	await get_tree().create_timer(
-		0.03,
-		true,
-		false,
-		true
-	).timeout
-	Engine.time_scale = 1.0
-	if !is_instance_valid(body):
+		await hit_stop()
 		return
 	# ---------------- KNOCKBACK ----------------
 	if body.has_method("apply_knockback"):

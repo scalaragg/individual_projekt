@@ -2,6 +2,7 @@ extends CharacterBody2D
 
 @onready var sprite = $Sprite2D
 
+@export var EnemyDamage = 15
 @export var health = 20
 @export var orb_scene: PackedScene
 @export var speed = 200
@@ -100,7 +101,9 @@ func slow(power, duration):
 # ---------------- DIE ----------------
 
 func die():
-	if orb_scene != null:
+	Engine.time_scale = 1.0
+
+	if orb_scene:
 		var orb = orb_scene.instantiate()
 		orb.global_position = global_position
 		get_parent().add_child(orb)
@@ -163,7 +166,7 @@ func _physics_process(delta):
 		if distance < 40 and attack_timer <= 0:
 
 			if player.has_method("take_damage"):
-				player.take_damage(10)
+				player.take_damage(EnemyDamage)
 			attack_timer = attack_cooldown
 
 	# knockback

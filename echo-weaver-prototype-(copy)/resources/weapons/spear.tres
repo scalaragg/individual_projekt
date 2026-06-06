@@ -4,9 +4,8 @@
 
 [resource]
 script = ExtResource("1_jk5lq")
-weapon_type = 2
 weapon_name = "Spear"
+weapon_type = 2
 attack_range = 100.0
-attack_cooldown = 0.7
-knockback = 100.0
+attack_cooldown = 1.0
 metadata/_custom_type_script = "uid://ctshf1pcdvfac"

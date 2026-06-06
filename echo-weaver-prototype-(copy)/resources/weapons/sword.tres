@@ -4,5 +4,6 @@
 
 [resource]
 script = ExtResource("1_g5ko2")
+attack_cooldown = 0.7
 inserted_orbs = null
 metadata/_custom_type_script = "uid://ctshf1pcdvfac"
