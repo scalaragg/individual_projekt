@@ -1,0 +1,28 @@
+[gd_scene format=3 uid="uid://ddvdc78rmyet7"]
+
+[ext_resource type="Script" uid="uid://dwt7f3vvgoaso" path="res://scripts/move_hint.gd" id="1_qdmmq"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_nmni1"]
+size = Vector2(394.875, 176.125)
+
+[node name="HintPromt" type="Node2D" unique_id=71255335]
+script = ExtResource("1_qdmmq")
+
+[node name="Visual" type="Node2D" parent="." unique_id=1748423725]
+
+[node name="Sprite2D" type="Sprite2D" parent="Visual" unique_id=2137496357]
+position = Vector2(1.1920929e-07, -5.9604645e-08)
+scale = Vector2(0.4, 0.4)
+centered = false
+
+[node name="Label" type="Label" parent="Visual" unique_id=1081408140]
+offset_right = 85.0
+offset_bottom = 23.0
+
+[node name="Area2D" type="Area2D" parent="." unique_id=21401358]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=1795997859]
+position = Vector2(198, 87)
+shape = SubResource("RectangleShape2D_nmni1")
+
+[connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]
