@@ -2,7 +2,6 @@
 
 [ext_resource type="PackedScene" uid="uid://cbihbbt0oeqsb" path="res://tscns/Player.tscn" id="1_ig7tw"]
 [ext_resource type="PackedScene" uid="uid://ceoodsh3k7tj5" path="res://tscns/Enemy.tscn" id="3_h2yge"]
-[ext_resource type="Script" uid="uid://cbesuljs4735d" path="res://scripts/hud.gd" id="4_1bvp3"]
 [ext_resource type="Texture2D" uid="uid://b4blvb8nlw1w0" path="res://assets/kings and pigs/Sprites/14-TileSets/Decorations (32x32).png" id="4_4ji1g"]
 [ext_resource type="Texture2D" uid="uid://m1yhokii3cci" path="res://assets/pastel.png" id="5_fwypi"]
 [ext_resource type="Texture2D" uid="uid://dg83f66wgg7n7" path="res://assets/kings and pigs/Sprites/14-TileSets/Terrain (32x32).png" id="5_sgjtq"]
@@ -14,6 +13,9 @@
 [ext_resource type="PackedScene" uid="uid://cd68mxrtm6521" path="res://tscns/weapon_pickup.tscn" id="9_xjty4"]
 [ext_resource type="Resource" uid="uid://o3yuf6nycjl8" path="res://resources/weapons/sword.tres" id="10_48kac"]
 [ext_resource type="Texture2D" uid="uid://bg6ixqphtwwkt" path="res://assets/Backgrounds/Ocean and clouds/Ocean_5/4.png" id="10_xjty4"]
+[ext_resource type="Script" uid="uid://cnrjd34sxc8df" path="res://scripts/hud_panel_(panel).gd" id="11_sgjtq"]
+[ext_resource type="Texture2D" uid="uid://bnxab6k4sncqx" path="res://assets/kings and pigs/Sprites/12-Live and Coins/Small Heart Idle (8x7).png" id="12_urb1c"]
+[ext_resource type="Texture2D" uid="uid://ca0nutqog2erl" path="res://assets/s4.png" id="13_7at7n"]
 [ext_resource type="PackedScene" uid="uid://ddvdc78rmyet7" path="res://tscns/Hint_promt.tscn" id="13_xjty4"]
 [ext_resource type="Texture2D" uid="uid://cn4qxefdn4s05" path="res://assets/A and D.png" id="14_48kac"]
 [ext_resource type="Texture2D" uid="uid://vnmljk52o8ke" path="res://assets/Space-Photoroom 1.png" id="15_dytsu"]
@@ -635,56 +637,64 @@ position = Vector2(3176, -124)
 [node name="Player" parent="." unique_id=2055960255 instance=ExtResource("1_ig7tw")]
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=91065264]
+script = ExtResource("11_sgjtq")
 
-[node name="Control" type="Control" parent="CanvasLayer" unique_id=1257310537]
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -12.0
-offset_top = -6.0
-offset_right = -12.0
-offset_bottom = -6.0
-grow_horizontal = 2
-grow_vertical = 2
-script = ExtResource("4_1bvp3")
-metadata/_edit_use_anchors_ = true
+[node name="HUDPanel" type="Panel" parent="CanvasLayer" unique_id=2089340716]
+offset_left = 12.0
+offset_top = 12.0
+offset_right = 232.0
+offset_bottom = 132.0
 
-[node name="HealthLabel" type="Label" parent="CanvasLayer/Control" unique_id=344858055]
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/HUDPanel" unique_id=1696684873]
 layout_mode = 0
-offset_left = 20.0
-offset_top = 20.0
-offset_right = 60.0
-offset_bottom = 43.0
-text = "Hp"
-metadata/_edit_use_anchors_ = true
+offset_left = 10.0
+offset_top = 5.0
+offset_right = 50.0
+offset_bottom = 109.0
 
-[node name="OrbLabel" type="Label" parent="CanvasLayer/Control" unique_id=1955568488]
-layout_mode = 0
-offset_left = 20.0
-offset_top = 40.0
-offset_right = 60.0
-offset_bottom = 63.0
-text = "Orb"
-metadata/_edit_use_anchors_ = true
+[node name="HPRow" type="HBoxContainer" parent="CanvasLayer/HUDPanel/VBoxContainer" unique_id=1586730546]
+layout_mode = 2
 
-[node name="WeaponLabel" type="Label" parent="CanvasLayer/Control" unique_id=1356050674]
-layout_mode = 0
-offset_left = 20.0
-offset_top = 60.0
-offset_right = 84.0
-offset_bottom = 83.0
-text = "Weapon"
-metadata/_edit_use_anchors_ = true
+[node name="HeartIcon" type="TextureRect" parent="CanvasLayer/HUDPanel/VBoxContainer/HPRow" unique_id=1544410558]
+custom_minimum_size = Vector2(18, 16)
+layout_mode = 2
+texture = ExtResource("12_urb1c")
+expand_mode = 1
+stretch_mode = 5
 
-[node name="SlotLabel" type="Label" parent="CanvasLayer/Control" unique_id=1860302368]
-layout_mode = 0
-offset_left = 20.0
-offset_top = 80.0
-offset_right = 60.0
-offset_bottom = 103.0
-text = "Slot"
-metadata/_edit_use_anchors_ = true
+[node name="HPLabel" type="Label" parent="CanvasLayer/HUDPanel/VBoxContainer/HPRow" unique_id=368767087]
+layout_mode = 2
+
+[node name="WeaponRow" type="HBoxContainer" parent="CanvasLayer/HUDPanel/VBoxContainer" unique_id=1501301478]
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="WeaponIcon" type="TextureRect" parent="CanvasLayer/HUDPanel/VBoxContainer/WeaponRow" unique_id=171284878]
+custom_minimum_size = Vector2(12, 12)
+layout_mode = 2
+texture = ExtResource("13_7at7n")
+stretch_mode = 5
+
+[node name="WeaponLabel" type="Label" parent="CanvasLayer/HUDPanel/VBoxContainer/WeaponRow" unique_id=1191943239]
+layout_mode = 2
+
+[node name="OrbsRow" type="HBoxContainer" parent="CanvasLayer/HUDPanel/VBoxContainer" unique_id=1429244019]
+layout_mode = 2
+
+[node name="OrbsText" type="Label" parent="CanvasLayer/HUDPanel/VBoxContainer/OrbsRow" unique_id=2002821558]
+layout_mode = 2
+
+[node name="OrbsSlots" type="HBoxContainer" parent="CanvasLayer/HUDPanel/VBoxContainer/OrbsRow" unique_id=2076858791]
+layout_mode = 2
+
+[node name="WeaponSlotsRow" type="HBoxContainer" parent="CanvasLayer/HUDPanel/VBoxContainer" unique_id=2053602670]
+layout_mode = 2
+
+[node name="SlotsText" type="Label" parent="CanvasLayer/HUDPanel/VBoxContainer/WeaponSlotsRow" unique_id=573505851]
+layout_mode = 2
+
+[node name="WeaponSlots" type="HBoxContainer" parent="CanvasLayer/HUDPanel/VBoxContainer/WeaponSlotsRow" unique_id=600618305]
+layout_mode = 2
 
 [node name="A and D hint" parent="." unique_id=71255335 instance=ExtResource("13_xjty4")]
 position = Vector2(-202, -101)
