@@ -19,12 +19,17 @@ run/main_scene="uid://b2xrsj1bs3uqo"
 config/features=PackedStringArray("4.6", "GL Compatibility")
 config/icon="res://assets/icon.svg"
 
+[autoload]
+
+GameState="*uid://eh8iddgnulfq"
+
 [global_group]
 
 player="main player"
 enemy="враг, уёбище"
 camera=""
 weapon_pickup=""
+spawn_point=""
 
 [input]
 

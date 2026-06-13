@@ -12,7 +12,7 @@
 [ext_resource type="Texture2D" uid="uid://bcioe7l8lkw0c" path="res://assets/hitright.png" id="6_brabj"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_kpjcp"]
-size = Vector2(32, 64)
+size = Vector2(28, 62)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_hpvbh"]
 atlas = ExtResource("4_q8m7j")
@@ -246,6 +246,7 @@ script = ExtResource("1_xhfnw")
 melee_scene = ExtResource("3_kne1u")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=939819596]
+position = Vector2(0, 1)
 shape = SubResource("RectangleShape2D_kpjcp")
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=1151919118 groups=["camera"]]

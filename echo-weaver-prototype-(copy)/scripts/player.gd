@@ -23,6 +23,12 @@ var current_speed = speed
 var melee_cooldown = 0.0
 var melee_delay = 1
 
+@export var fall_death_y: float = 900.0
+@export var fall_damage: int = 15
+
+var spawn_position: Vector2
+var is_respawning: bool = false
+
 #--------------- Поднимание предметов ----------
 
 func pickup_weapon(new_weapon):
@@ -176,6 +182,25 @@ func attack():
 	print("урон:", damage)
 	print("орбы:", weapon.inserted_orbs)
 
+# --------- Респавн ----------
+
+func respawn_after_fall():
+	is_respawning = true
+
+	health -= fall_damage
+
+	if health <= 0:
+		health = 100
+
+	global_position = spawn_position
+	velocity = Vector2.ZERO
+
+	print("Упал. HP:", health)
+
+	await get_tree().create_timer(0.2).timeout
+	is_respawning = false
+
+
 # ------------------- ПРЫЖОК -------------------
 @export var jump_velocity: float = -400.0
 
@@ -245,16 +270,32 @@ func insert_orb(orb_type: String):
 
 	print("Вставлен orb:", orb_type)
 	print(weapon.inserted_orbs)
-		
+
+
+# -------реади-----------------------
 func _ready():
 	Engine.time_scale = 1.0
 	
-	
-	inventory.clear()
-	weapon = null
-	current_weapon_index = -1
+	var spawn = get_tree().get_first_node_in_group("spawn_point")
 
-	print("Старт без оружия")
+	if spawn != null:
+		spawn_position = spawn.global_position
+	else:
+		spawn_position = global_position
+
+	global_position = spawn_position
+
+	if GameState.current_weapon != null or GameState.stored_orbs.size() > 0:
+		GameState.load_player(self)
+	else:
+		inventory.clear()
+		weapon = null
+		current_weapon_index = -1
+
+	print("Игрок загружен")
+	print("HP:", health)
+	print("Оружие:", weapon)
+	print("Орбы:", stored_orbs)
 	
 # ----------------- heal ----------------------
 func heal(amount):
@@ -361,3 +402,6 @@ func _physics_process(delta):
 			melee_cooldown = weapon.attack_cooldown
 	
 	move_and_slide()
+
+	if global_position.y > fall_death_y and !is_respawning:
+		respawn_after_fall()

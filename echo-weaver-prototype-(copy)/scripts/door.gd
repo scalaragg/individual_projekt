@@ -69,20 +69,18 @@ func enter_door():
 
 	is_transitioning = true
 
-	# блокируем управление игрока, если у него есть такая переменная
+	GameState.save_player(player)
+
 	if "can_control" in player:
 		player.can_control = false
 
-	# плавно скрываем игрока
 	var tween = create_tween()
 	tween.tween_property(player, "modulate:a", 0.0, 0.6)
 	await tween.finished
 
-	close_door()
+	await close_door()
 
-	# ждём, чтобы анимация закрытия успела проиграться
-	await get_tree().create_timer(0.5).timeout
-
+	await get_tree().create_timer(0.2).timeout
 	get_tree().change_scene_to_file(next_scene_path)
 
 

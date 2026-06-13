@@ -1,0 +1,65 @@
+[gd_scene format=3 uid="uid://xetut2tek33x"]
+
+[ext_resource type="Script" uid="uid://cnrjd34sxc8df" path="res://scripts/hud_panel_(panel).gd" id="1_vow1y"]
+[ext_resource type="Texture2D" uid="uid://bnxab6k4sncqx" path="res://assets/kings and pigs/Sprites/12-Live and Coins/Small Heart Idle (8x7).png" id="2_ne771"]
+[ext_resource type="Texture2D" uid="uid://ca0nutqog2erl" path="res://assets/s4.png" id="3_xxqia"]
+
+[node name="CanvasLayer" type="CanvasLayer" unique_id=1763254384]
+script = ExtResource("1_vow1y")
+
+[node name="HUDPanel" type="Panel" parent="." unique_id=1302140418]
+offset_left = 12.0
+offset_top = 12.0
+offset_right = 232.0
+offset_bottom = 132.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HUDPanel" unique_id=1942432208]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 5.0
+offset_right = 50.0
+offset_bottom = 109.0
+
+[node name="HPRow" type="HBoxContainer" parent="HUDPanel/VBoxContainer" unique_id=2043169073]
+layout_mode = 2
+
+[node name="HeartIcon" type="TextureRect" parent="HUDPanel/VBoxContainer/HPRow" unique_id=1767287335]
+custom_minimum_size = Vector2(18, 16)
+layout_mode = 2
+texture = ExtResource("2_ne771")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="HPLabel" type="Label" parent="HUDPanel/VBoxContainer/HPRow" unique_id=1629189246]
+layout_mode = 2
+
+[node name="WeaponRow" type="HBoxContainer" parent="HUDPanel/VBoxContainer" unique_id=327560952]
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="WeaponIcon" type="TextureRect" parent="HUDPanel/VBoxContainer/WeaponRow" unique_id=268706890]
+custom_minimum_size = Vector2(12, 12)
+layout_mode = 2
+texture = ExtResource("3_xxqia")
+stretch_mode = 5
+
+[node name="WeaponLabel" type="Label" parent="HUDPanel/VBoxContainer/WeaponRow" unique_id=476559012]
+layout_mode = 2
+
+[node name="OrbsRow" type="HBoxContainer" parent="HUDPanel/VBoxContainer" unique_id=912986570]
+layout_mode = 2
+
+[node name="OrbsText" type="Label" parent="HUDPanel/VBoxContainer/OrbsRow" unique_id=1365773295]
+layout_mode = 2
+
+[node name="OrbsSlots" type="HBoxContainer" parent="HUDPanel/VBoxContainer/OrbsRow" unique_id=303081546]
+layout_mode = 2
+
+[node name="WeaponSlotsRow" type="HBoxContainer" parent="HUDPanel/VBoxContainer" unique_id=956220732]
+layout_mode = 2
+
+[node name="SlotsText" type="Label" parent="HUDPanel/VBoxContainer/WeaponSlotsRow" unique_id=43730300]
+layout_mode = 2
+
+[node name="WeaponSlots" type="HBoxContainer" parent="HUDPanel/VBoxContainer/WeaponSlotsRow" unique_id=888574179]
+layout_mode = 2
