@@ -70,6 +70,7 @@ func enter_door():
 	is_transitioning = true
 
 	GameState.save_player(player)
+	GameState.save_checkpoint()
 
 	if "can_control" in player:
 		player.can_control = false

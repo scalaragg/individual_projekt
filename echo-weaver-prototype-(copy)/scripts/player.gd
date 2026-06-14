@@ -29,6 +29,9 @@ var melee_delay = 1
 var spawn_position: Vector2
 var is_respawning: bool = false
 
+@export var max_step_height: int = 10
+@export var step_check_distance: float = 6.0
+
 #--------------- Поднимание предметов ----------
 
 func pickup_weapon(new_weapon):
@@ -51,6 +54,32 @@ func pickup_weapon(new_weapon):
 	# EQUIP NEW
 	weapon = new_weapon
 	print("picked weapon:", weapon.weapon_name)
+	
+	
+#-------step up -----------
+func try_step_up(direction: float):
+	if !is_on_floor():
+		return
+
+	if direction == 0:
+		return
+
+	var dir = sign(direction)
+	var forward_motion = Vector2(dir * step_check_distance, 0)
+
+	# Если впереди нет препятствия — подниматься не надо
+	if !test_move(global_transform, forward_motion):
+		return
+
+	# Проверяем высоту от 1 до max_step_height
+	for h in range(1, max_step_height + 1):
+		var raised_transform = global_transform.translated(Vector2(0, -h))
+
+		# Если на этой высоте впереди уже свободно — поднимаем игрока
+		if !test_move(raised_transform, forward_motion):
+			global_position.y -= h
+			global_position.x += dir * 2
+			return
 
 
 # ---------------- ORBS ----------------
@@ -120,7 +149,12 @@ func take_damage(damage: int):
 		die()
 
 func die():
-	print("Игрок умер")
+	print("Игрок умер. Перезапуск уровня.")
+
+	GameState.load_checkpoint()
+
+	Engine.time_scale = 1.0
+
 	get_tree().reload_current_scene()
 
 
@@ -190,7 +224,8 @@ func respawn_after_fall():
 	health -= fall_damage
 
 	if health <= 0:
-		health = 100
+		die()
+		return
 
 	global_position = spawn_position
 	velocity = Vector2.ZERO
@@ -291,6 +326,10 @@ func _ready():
 		inventory.clear()
 		weapon = null
 		current_weapon_index = -1
+		
+	if GameState.checkpoint_inventory.is_empty() and GameState.checkpoint_weapon == null and GameState.checkpoint_orbs.is_empty():
+		GameState.save_player(self)
+		GameState.save_checkpoint()
 
 	print("Игрок загружен")
 	print("HP:", health)
@@ -358,6 +397,7 @@ func _physics_process(delta):
 		
 	# ДВИЖЕние
 	var direction = Input.get_axis("move_left", "move_right")
+	try_step_up(direction)
 
 	if direction != 0:
 		facing_direction = direction
