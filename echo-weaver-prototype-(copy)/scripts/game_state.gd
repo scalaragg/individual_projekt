@@ -16,6 +16,22 @@ var checkpoint_inventory: Array[WeaponData] = []
 var checkpoint_weapon_index: int = -1
 var checkpoint_orbs: Array[String] = []
 
+func reset_run():
+	player_health = 100
+
+	current_weapon = null
+	inventory.clear()
+	current_weapon_index = -1
+
+	stored_orbs.clear()
+
+	checkpoint_health = 100
+	checkpoint_weapon = null
+	checkpoint_inventory.clear()
+	checkpoint_weapon_index = -1
+	checkpoint_orbs.clear()
+
+	spawn_position = Vector2.ZERO
 
 func save_player(player):
 	player_health = player.health

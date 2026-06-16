@@ -12,7 +12,8 @@ func _process(delta: float) -> void:
 
 
 func _on_play_pressed():
-	get_tree().change_scene_to_file("res://tscns/level1_study.tscn")
+	GameState.reset_run()
+	get_tree().change_scene_to_file("res://tscns/level_1.tscn")
 
 
 

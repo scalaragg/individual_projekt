@@ -23,6 +23,11 @@ config/icon="res://assets/icon.svg"
 
 GameState="*uid://eh8iddgnulfq"
 
+[display]
+
+window/size/viewport_width=1920
+window/size/viewport_height=1080
+
 [global_group]
 
 player="main player"
@@ -30,6 +35,7 @@ enemy="враг, уёбище"
 camera=""
 weapon_pickup=""
 spawn_point=""
+hud=""
 
 [input]
 

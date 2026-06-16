@@ -16,6 +16,8 @@ var player = null
 @onready var heart_icon = get_node_or_null("HUDPanel/VBoxContainer/HPRow/HeartIcon")
 @onready var weapon_icon = get_node_or_null("HUDPanel/VBoxContainer/WeaponRow/WeaponIcon")
 
+@onready var damage_overlay = get_node_or_null("DamageOverlay")
+@onready var low_hp_vignette = get_node_or_null("LowHPVignette")
 
 func _ready():
 	player = get_tree().get_first_node_in_group("player")
@@ -38,6 +40,33 @@ func _ready():
 	#	weapon_icon.hide()
 
 	setup_panel_style()
+	
+	
+func update_low_hp_vignette():
+	if low_hp_vignette == null:
+		return
+
+	var max_hp = 100.0
+	var hp_percent = float(player.health) / max_hp
+
+	if hp_percent > 0.35:
+		low_hp_vignette.modulate.a = 0.0
+		return
+
+	var danger = 0.55 - (hp_percent / 0.35)
+	low_hp_vignette.modulate = Color(1.0, 0.0, 0.0, danger * 0.45)
+	
+func show_damage_overlay():
+	print("DAMAGE OVERLAY CALLED")
+
+	if damage_overlay == null:
+		print("DamageOverlay не найден")
+		return
+
+	damage_overlay.color = Color(1, 0, 0, 0.18)
+
+	var tween = create_tween()
+	tween.tween_property(damage_overlay, "color:a", 0.0, 0.35)
 
 
 func _process(_delta):
@@ -50,6 +79,7 @@ func _process(_delta):
 	update_weapon()
 	update_orbs()
 	update_weapon_slots()
+	update_low_hp_vignette()
 
 
 func setup_panel_style():

@@ -1,0 +1,48 @@
+[gd_scene format=3 uid="uid://cv76gsmcxj3cu"]
+
+[ext_resource type="Texture2D" uid="uid://0yi41x173dvw" path="res://assets/Backgrounds/Ocean and clouds/Ocean_5/1.png" id="1_6v8ho"]
+[ext_resource type="Texture2D" uid="uid://c30nqxul5415l" path="res://assets/Backgrounds/Ocean and clouds/Ocean_5/2.png" id="2_ej8bm"]
+[ext_resource type="Texture2D" uid="uid://pacpqhmgkav0" path="res://assets/Backgrounds/Ocean and clouds/Ocean_5/3.png" id="3_0iu1w"]
+[ext_resource type="Texture2D" uid="uid://bg6ixqphtwwkt" path="res://assets/Backgrounds/Ocean and clouds/Ocean_5/4.png" id="4_dmxee"]
+
+[node name="ParallaxBackground" type="ParallaxBackground" unique_id=1015658066]
+
+[node name="Backofall" type="ParallaxLayer" parent="." unique_id=391943173]
+position = Vector2(-83, -77)
+motion_scale = Vector2(0.05, 0.02)
+motion_mirroring = Vector2(2304, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="Backofall" unique_id=402339687]
+scale = Vector2(4, 4)
+texture = ExtResource("1_6v8ho")
+centered = false
+
+[node name="Stars" type="ParallaxLayer" parent="." unique_id=903838519]
+position = Vector2(-83, -77)
+motion_scale = Vector2(0.08, 0.04)
+motion_mirroring = Vector2(2304, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="Stars" unique_id=1882027036]
+scale = Vector2(4, 4)
+texture = ExtResource("2_ej8bm")
+centered = false
+
+[node name="Clouds" type="ParallaxLayer" parent="." unique_id=1374159075]
+position = Vector2(-83, -77)
+motion_scale = Vector2(0.15, 0.04)
+motion_mirroring = Vector2(2304, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="Clouds" unique_id=1082802237]
+scale = Vector2(4, 4)
+texture = ExtResource("3_0iu1w")
+centered = false
+
+[node name="NearClouds" type="ParallaxLayer" parent="." unique_id=318864758]
+position = Vector2(-83, -77)
+motion_scale = Vector2(0.2, 0.04)
+motion_mirroring = Vector2(2304, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="NearClouds" unique_id=48346595]
+scale = Vector2(4, 4)
+texture = ExtResource("4_dmxee")
+centered = false

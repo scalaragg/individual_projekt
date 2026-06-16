@@ -37,6 +37,13 @@ func _on_body_entered(body):
 		if effect == "red":
 			final_damage += 2
 	body.take_damage(final_damage)
+
+	var hit_camera = get_viewport().get_camera_2d()
+
+	if hit_camera != null:
+		if hit_camera.has_method("add_shake"):
+			hit_camera.add_shake(4)
+
 	await hit_stop()
 	if !is_instance_valid(body):
 		return

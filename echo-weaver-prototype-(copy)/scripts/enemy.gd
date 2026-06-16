@@ -3,10 +3,20 @@ extends CharacterBody2D
 @onready var sprite = $Sprite2D
 
 @export var EnemyDamage = 15
-@export var health = 20
-@export var orb_scene: PackedScene
-@export var speed = 200
 @export var damage_text_scene: PackedScene
+
+@export var drop_orb: bool = true
+@export_enum("red", "green", "blue", "random") var orb_drop_type: String = "random"
+@export var orb_drop_chance: float = 1.0
+@export var orb_scene: PackedScene
+
+@export var health: int = 10
+@export var speed: float = 80.0
+@export var attack_damage: int = 10
+@export var attack_range: float = 25.0
+@export var attack_cooldown: float = 1.0
+@export var chase_range: float = 220.0
+@export var stop_distance: float = 18.0
 
 var invulnerable = false
 
@@ -17,12 +27,35 @@ var player = null
 
 var is_stunned = false
 
-var attack_cooldown = 1.0
 var attack_timer = 0.0
 
 var speed_multiplier = 1.0
 var knockback_velocity = Vector2.ZERO
 
+
+#------Дроп--------
+func drop_loot():
+	if !drop_orb:
+		return
+
+	if orb_scene == null:
+		return
+
+	if randf() > orb_drop_chance:
+		return
+
+	var orb = orb_scene.instantiate()
+
+	var final_type = orb_drop_type
+	if final_type == "random":
+		var types = ["red", "green", "blue"]
+		final_type = types.pick_random()
+
+	if "orb_type" in orb:
+		orb.orb_type = final_type
+
+	orb.global_position = global_position
+	get_parent().add_child(orb)
 
 # ---------------- FLASH ----------------
 
@@ -107,7 +140,9 @@ func die():
 		var orb = orb_scene.instantiate()
 		orb.global_position = global_position
 		get_parent().add_child(orb)
-
+		
+	drop_loot()
+	queue_free()
 	queue_free()
 
 
@@ -135,46 +170,29 @@ func _on_area_2d_body_exited(body):
 # ---------------- PHYSICS ----------------
 
 func _physics_process(delta):
+	if attack_timer > 0:
+		attack_timer -= delta
 
-	# stun
-	if is_stunned:
-		move_and_slide()
+	if player == null:
+		player = get_tree().get_first_node_in_group("player")
 		return
-		
-	# gravity
-	if not is_on_floor():
+
+	if !is_on_floor():
 		velocity.y += gravity * delta
 
-	# movement
-	if player_in_range and player != null:
-		var direction = (
-			player.global_position - global_position
-		).normalized()
-		velocity.x = direction.x * speed * speed_multiplier
+	var distance = global_position.distance_to(player.global_position)
+	var direction = sign(player.global_position.x - global_position.x)
 
-	else:
-		velocity.x = 0
+	if distance <= chase_range:
+		if distance > stop_distance:
+			velocity.x = direction * speed * speed_multiplier
+		else:
+			velocity.x = move_toward(velocity.x, 0, speed)
 
-	# attack
-	attack_timer -= delta
-
-	if player_in_range and player != null:
-		var distance = global_position.distance_to(
-			player.global_position
-		)
-
-		if distance < 40 and attack_timer <= 0:
-
-			if player.has_method("take_damage"):
-				player.take_damage(EnemyDamage)
+		if distance <= attack_range and attack_timer <= 0:
+			player.take_damage(attack_damage)
 			attack_timer = attack_cooldown
-
-	# knockback
-	velocity += knockback_velocity
-	knockback_velocity = knockback_velocity.lerp(
-		Vector2.ZERO,
-		12 * delta
-	)
-	
+	else:
+		velocity.x = move_toward(velocity.x, 0, speed)
 
 	move_and_slide()

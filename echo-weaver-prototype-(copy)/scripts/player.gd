@@ -32,6 +32,14 @@ var is_respawning: bool = false
 @export var max_step_height: int = 10
 @export var step_check_distance: float = 6.0
 
+var is_invincible: bool = false
+@export var invincible_time: float = 0.4
+
+func damage_flash():
+	modulate = Color(1.5, 0.4, 0.4)
+
+	var tween = create_tween()
+	tween.tween_property(self, "modulate", Color.WHITE, 0.2)
 #--------------- Поднимание предметов ----------
 
 func pickup_weapon(new_weapon):
@@ -122,7 +130,7 @@ func insert_next_orb():
 	print("inserted:", weapon.inserted_orbs)
 
 #---------- equip weapon func --------------
-
+	   
 
 func equip_weapon(index):
 
@@ -140,13 +148,36 @@ func equip_weapon(index):
 
 
 
-func take_damage(damage: int):
-	print("Игрок атакован")
-	health -= damage
-	print("player hp:", health)
-	
+func take_damage(amount):
+	if is_invincible:
+		return
+
+	health -= amount
+	print("урон:", amount)
+	print("hp:", health)
+
+	damage_flash()
+
+	var hud = get_tree().get_first_node_in_group("hud")
+
+	print("HUD FOUND:", hud)
+
+	if hud != null and hud.has_method("show_damage_overlay"):
+		hud.show_damage_overlay()
+	else:
+		print("HUD не найден или нет метода show_damage_overlay")
+
+	var camera = get_viewport().get_camera_2d()
+	if camera != null and camera.has_method("add_shake"):
+		camera.add_shake(6)
+		
 	if health <= 0:
 		die()
+		return
+
+	is_invincible = true
+	await get_tree().create_timer(invincible_time).timeout
+	is_invincible = false
 
 func die():
 	print("Игрок умер. Перезапуск уровня.")

@@ -4,8 +4,29 @@
 [ext_resource type="Texture2D" uid="uid://bnxab6k4sncqx" path="res://assets/kings and pigs/Sprites/12-Live and Coins/Small Heart Idle (8x7).png" id="2_ne771"]
 [ext_resource type="Texture2D" uid="uid://ca0nutqog2erl" path="res://assets/s4.png" id="3_xxqia"]
 
-[node name="CanvasLayer" type="CanvasLayer" unique_id=1763254384]
+[sub_resource type="CanvasTexture" id="CanvasTexture_vow1y"]
+
+[node name="CanvasLayer" type="CanvasLayer" unique_id=1763254384 groups=["hud"]]
 script = ExtResource("1_vow1y")
+
+[node name="DamageOverlay" type="ColorRect" parent="." unique_id=2068323330]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(1, 0, 0, 0)
+
+[node name="LowHPVignette" type="TextureRect" parent="." unique_id=2081353308]
+modulate = Color(1, 1, 1, 0)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = SubResource("CanvasTexture_vow1y")
+expand_mode = 1
 
 [node name="HUDPanel" type="Panel" parent="." unique_id=1302140418]
 offset_left = 12.0

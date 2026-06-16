@@ -1,0 +1,43 @@
+[gd_scene format=3 uid="uid://ibabyxw6okg8"]
+
+[ext_resource type="Script" uid="uid://de8t7mwxxq4gi" path="res://scripts/win_screen.gd" id="1_16cc5"]
+
+[node name="WinScreen" type="Control" unique_id=57552295]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_16cc5")
+
+[node name="Background" type="ColorRect" parent="." unique_id=1807574621]
+layout_mode = 0
+offset_right = 1920.0
+offset_bottom = 1080.0
+color = Color(0.078431375, 0.105882354, 0.1764706, 1)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=2025348595]
+layout_mode = 0
+offset_right = 1920.0
+offset_bottom = 1080.0
+theme_override_constants/separation = 16
+
+[node name="TitleLabel" type="Label" parent="VBoxContainer" unique_id=1128713100]
+layout_mode = 2
+text = "DEMO COMPLETE"
+horizontal_alignment = 1
+
+[node name="RestartButton" type="Button" parent="VBoxContainer" unique_id=906234050]
+layout_mode = 2
+text = "Заново"
+
+[node name="MenuButton" type="Button" parent="VBoxContainer" unique_id=2081093311]
+layout_mode = 2
+text = "Меню"
+
+[node name="QuitButton" type="Button" parent="VBoxContainer" unique_id=44740665]
+layout_mode = 2
+text = "Выход"
+
+[connection signal="pressed" from="VBoxContainer/RestartButton" to="." method="_on_restart_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/MenuButton" to="." method="_on_menu_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/QuitButton" to="." method="_on_quit_button_pressed"]
