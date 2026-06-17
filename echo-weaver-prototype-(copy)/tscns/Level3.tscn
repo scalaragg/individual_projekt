@@ -610,5 +610,6 @@ EnemyDamage = 10
 position = Vector2(-1029, -543)
 EnemyDamage = 20
 health = 50
+attack_range = 40.0
 
 [node name="ParallaxBackground" parent="." unique_id=1015658066 instance=ExtResource("9_wbbgq")]

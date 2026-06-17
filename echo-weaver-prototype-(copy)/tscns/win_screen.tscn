@@ -23,19 +23,45 @@ theme_override_constants/separation = 16
 
 [node name="TitleLabel" type="Label" parent="VBoxContainer" unique_id=1128713100]
 layout_mode = 2
+theme_override_font_sizes/font_size = 56
 text = "DEMO COMPLETE"
+horizontal_alignment = 1
+
+[node name="TitleLabelTHX" type="Label" parent="VBoxContainer" unique_id=95531428]
+layout_mode = 2
+theme_override_font_sizes/font_size = 56
+text = "Спасибо за прохождение!"
+horizontal_alignment = 1
+
+[node name="TitleLabelTHX4" type="Label" parent="VBoxContainer" unique_id=323995382]
+layout_mode = 2
+horizontal_alignment = 1
+
+[node name="TitleLabelTHX2" type="Label" parent="VBoxContainer" unique_id=1820789629]
+layout_mode = 2
+horizontal_alignment = 1
+
+[node name="TitleLabelTHX3" type="Label" parent="VBoxContainer" unique_id=1215774066]
+layout_mode = 2
+horizontal_alignment = 1
+
+[node name="TitleLabelTHX5" type="Label" parent="VBoxContainer" unique_id=1338610203]
+layout_mode = 2
 horizontal_alignment = 1
 
 [node name="RestartButton" type="Button" parent="VBoxContainer" unique_id=906234050]
 layout_mode = 2
+theme_override_font_sizes/font_size = 72
 text = "Заново"
 
 [node name="MenuButton" type="Button" parent="VBoxContainer" unique_id=2081093311]
 layout_mode = 2
+theme_override_font_sizes/font_size = 72
 text = "Меню"
 
 [node name="QuitButton" type="Button" parent="VBoxContainer" unique_id=44740665]
 layout_mode = 2
+theme_override_font_sizes/font_size = 72
 text = "Выход"
 
 [connection signal="pressed" from="VBoxContainer/RestartButton" to="." method="_on_restart_button_pressed"]

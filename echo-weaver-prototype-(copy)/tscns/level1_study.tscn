@@ -5,6 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://cei7xak5ewg75" path="res://assets/Toon free/environment/environment.png" id="7_5cowd"]
 [ext_resource type="Texture2D" uid="uid://b4blvb8nlw1w0" path="res://assets/kings and pigs/Sprites/14-TileSets/Decorations (32x32).png" id="8_2l1pa"]
 [ext_resource type="PackedScene" uid="uid://lfl1s2xxljac" path="res://tscns/door.tscn" id="9_6xalh"]
+[ext_resource type="Script" uid="uid://dybf7buebpxu3" path="res://scripts/Orbs.gd" id="10_g61o0"]
 [ext_resource type="PackedScene" uid="uid://cbihbbt0oeqsb" path="res://tscns/Player.tscn" id="10_jtw0u"]
 [ext_resource type="PackedScene" uid="uid://ddvdc78rmyet7" path="res://tscns/Hint_promt.tscn" id="14_6tguy"]
 [ext_resource type="Texture2D" uid="uid://cn4qxefdn4s05" path="res://assets/A and D.png" id="15_w6d3q"]
@@ -582,6 +583,28 @@ sources/2 = SubResource("TileSetAtlasSource_4ji1g")
 sources/3 = SubResource("TileSetAtlasSource_q4gcv")
 sources/0 = SubResource("TileSetAtlasSource_7at7n")
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ajbm3"]
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_wxuvc"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ajbm3"]
+radius = 97.020615
+
+[sub_resource type="PackedScene" id="PackedScene_701qp"]
+_bundled = {
+"conn_count": 2,
+"conns": PackedInt32Array(1073741829, 1073741828, 16, 15, 2, 0, 0, 1073741831, 1073741830, 18, 17, 2, 0, 0),
+"editable_instances": [],
+"id_paths": [PackedInt32Array(), PackedInt32Array(), PackedInt32Array(), PackedInt32Array(), PackedInt32Array(), PackedInt32Array(), PackedInt32Array(), PackedInt32Array()],
+"names": PackedStringArray("Orbs", "CharacterBody2D", "script", "CollisionShape2D", "CollisionShape2D", "shape", "Sprite2D", "Sprite2D", "scale", "texture", "Area2D", "Area2D", "CollisionShape2D", "CollisionShape2D", "shape", "_on_area_2d_body_entered", "body_entered", "_on_area_2d_body_exited", "body_exited"),
+"node_count": 5,
+"node_ids": PackedInt32Array(1524022052, 1309427359, 146160172, 475560322, 1730972666),
+"node_paths": [NodePath("."), NodePath("."), NodePath("."), NodePath("./Area2D"), NodePath("."), NodePath("Area2D"), NodePath("."), NodePath("Area2D")],
+"nodes": PackedInt32Array(-1, -1, 1, 0, -1, 1, 2, 0, 0, 1073741824, 0, 4, 3, -1, 1, 5, 1, 0, 1073741825, 0, 7, 6, -1, 2, 8, 2, 9, 3, 0, 1073741826, 0, 11, 10, -1, 0, 0, 1073741827, 0, 13, 12, -1, 1, 14, 4, 0),
+"variants": [ExtResource("10_g61o0"), SubResource("RectangleShape2D_ajbm3"), Vector2(20, 20), SubResource("CanvasTexture_wxuvc"), SubResource("CircleShape2D_ajbm3")],
+"version": 3
+}
+
 [node name="Main" type="Node2D" unique_id=1044733990]
 
 [node name="TileMapLayer" type="TileMapLayer" parent="." unique_id=403039005]
@@ -613,6 +636,10 @@ scale = Vector2(0.933, 1.015)
 
 [node name="Enemy" parent="." unique_id=1407349446 instance=ExtResource("16_gdclg")]
 position = Vector2(2697, -128)
+EnemyDamage = 15
+drop_orb = false
+orb_scene = SubResource("PackedScene_701qp")
+attack_range = 50.0
 
 [node name="Area2D" parent="." unique_id=1566575428 instance=ExtResource("17_j653c")]
 position = Vector2(1079, -122)
