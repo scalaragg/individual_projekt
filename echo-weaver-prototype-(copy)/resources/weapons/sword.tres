@@ -1,9 +1,10 @@
 [gd_resource type="Resource" script_class="WeaponData" format=3 uid="uid://o3yuf6nycjl8"]
 
 [ext_resource type="Script" uid="uid://ctshf1pcdvfac" path="res://resources/weapon_data.gd" id="1_g5ko2"]
+[ext_resource type="Texture2D" uid="uid://bph5lb8woitnd" path="res://assets/s3.png" id="1_t8t18"]
 
 [resource]
 script = ExtResource("1_g5ko2")
+pickup_texture = ExtResource("1_t8t18")
 attack_cooldown = 0.7
-inserted_orbs = null
 metadata/_custom_type_script = "uid://ctshf1pcdvfac"

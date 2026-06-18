@@ -10,6 +10,7 @@ enum WeaponType {
 
 @export var weapon_name: String = "Sword"
 @export var weapon_type: WeaponType
+@export var pickup_texture: Texture2D
 
 @export var damage: int = 10
 @export var attack_range: float = 50.0

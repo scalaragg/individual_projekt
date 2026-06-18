@@ -17,6 +17,15 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(1, 0, 0, 0)
 
+[node name="HealOverlay" type="ColorRect" parent="." unique_id=1422338036]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 1, 0, 0)
+
 [node name="LowHPVignette" type="TextureRect" parent="." unique_id=2081353308]
 modulate = Color(1, 1, 1, 0)
 anchors_preset = 15
@@ -27,6 +36,19 @@ grow_vertical = 2
 mouse_filter = 2
 texture = SubResource("CanvasTexture_vow1y")
 expand_mode = 1
+
+[node name="LevelTitleLabel" type="Label" parent="." unique_id=521506720]
+modulate = Color(1, 1, 1, 0)
+custom_minimum_size = Vector2(600, 20)
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = 160.0
+offset_bottom = 183.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 72
+text = "Вилино"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="HUDPanel" type="Panel" parent="." unique_id=1302140418]
 offset_left = 12.0
@@ -59,7 +81,7 @@ layout_mode = 2
 theme_override_constants/separation = 4
 
 [node name="WeaponIcon" type="TextureRect" parent="HUDPanel/VBoxContainer/WeaponRow" unique_id=268706890]
-custom_minimum_size = Vector2(12, 12)
+custom_minimum_size = Vector2(10, 10)
 layout_mode = 2
 texture = ExtResource("3_xxqia")
 stretch_mode = 5

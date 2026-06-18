@@ -1,6 +1,9 @@
 [gd_scene format=3 uid="uid://bla6q46k5lek4"]
 
 [ext_resource type="Script" uid="uid://dybf7buebpxu3" path="res://scripts/Orbs.gd" id="1_7n20r"]
+[ext_resource type="Texture2D" uid="uid://dwmut6r881yu4" path="res://assets/main/Orbs/redOrb.png" id="2_yfg63"]
+[ext_resource type="Texture2D" uid="uid://nunsx26sna2a" path="res://assets/main/Orbs/greenOrb.png" id="3_lpqts"]
+[ext_resource type="Texture2D" uid="uid://42vgm6a0avsg" path="res://assets/main/Orbs/blueOrb.png" id="4_fbx3d"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ajbm3"]
 
@@ -11,12 +14,14 @@ radius = 97.020615
 
 [node name="Orbs" type="CharacterBody2D" unique_id=1524022052]
 script = ExtResource("1_7n20r")
+red_texture = ExtResource("2_yfg63")
+green_texture = ExtResource("3_lpqts")
+blue_texture = ExtResource("4_fbx3d")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1309427359]
 shape = SubResource("RectangleShape2D_ajbm3")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=146160172]
-scale = Vector2(20, 20)
 texture = SubResource("CanvasTexture_wxuvc")
 
 [node name="Area2D" type="Area2D" parent="." unique_id=475560322]

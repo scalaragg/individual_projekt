@@ -5,6 +5,13 @@ const SWORD = preload("res://resources/weapons/sword.tres")
 const HAMMER = preload("res://resources/weapons/hammer.tres")
 const SPEAR = preload("res://resources/weapons/spear.tres")
 
+@onready var sprite = $AnimatedSprite2D
+
+var is_attacking: bool = false
+var is_hurt: bool = false
+var is_dead: bool = false
+var can_control: bool = true
+
 var inventory: Array[WeaponData] = []
 
 var current_weapon_index = 0
@@ -22,6 +29,7 @@ var current_speed = speed
 @export var melee_scene: PackedScene
 var melee_cooldown = 0.0
 var melee_delay = 1
+@export var attack_hit_delay: float = 0.12
 
 @export var fall_death_y: float = 900.0
 @export var fall_damage: int = 15
@@ -34,7 +42,134 @@ var is_respawning: bool = false
 
 var is_invincible: bool = false
 @export var invincible_time: float = 0.4
+@export var hurt_lock_time: float = 0.25
 
+#----спавн атак хитбокс ------
+
+func spawn_attack_hitbox(attack_direction: float):
+	await get_tree().create_timer(attack_hit_delay).timeout
+
+	if is_dead:
+		return
+
+	if weapon == null:
+		return
+
+	var hit = melee_scene.instantiate()
+
+	var damage = weapon.damage
+	var attack_range = weapon.attack_range
+	var knockback = weapon.knockback
+
+	var hit_position = attack_range * attack_direction
+
+	var collision = hit.get_node("CollisionShape2D")
+	var shape = collision.shape
+	var hit_sprite = hit.get_node("Sprite2D")
+
+	if weapon.weapon_type == WeaponData.WeaponType.HAMMER:
+		shape.size = Vector2(80, 80)
+		hit_position *= 0.8
+		hit_sprite.scale = Vector2(2, 2)
+		hit_sprite.modulate = Color.RED
+
+	elif weapon.weapon_type == WeaponData.WeaponType.SPEAR:
+		shape.size = Vector2(140, 25)
+		hit_position *= 1.0
+		hit_sprite.scale = Vector2(1, 1)
+		hit_sprite.modulate = Color.BLUE
+
+	else:
+		shape.size = Vector2(50, 40)
+		hit_sprite.scale = Vector2(1, 1)
+		hit_sprite.modulate = Color.WHITE
+
+	hit.global_position = global_position + Vector2(hit_position, 0)
+	hit.damage = damage
+	hit.knockback = knockback
+	hit.effects = weapon.inserted_orbs.duplicate()
+
+	get_parent().add_child(hit)
+
+	print("АТАКА:")
+	print("оружие:", weapon.weapon_name)
+	print("урон:", damage)
+	print("орбы:", weapon.inserted_orbs)
+
+#----- анимациии ------
+func update_animation():
+	if sprite == null:
+		return
+
+	if is_dead:
+		return
+
+	if is_attacking:
+		return
+
+	if is_hurt:
+		return
+
+	var direction = Input.get_axis("move_left", "move_right")
+
+	if direction < 0:
+		sprite.flip_h = true
+	elif direction > 0:
+		sprite.flip_h = false
+
+	if !is_on_floor():
+		if velocity.y < 0:
+			play_anim("jump")
+		else:
+			play_anim("fall")
+		return
+
+
+	if abs(velocity.x) > 10:
+		play_anim("run")
+	else:
+		play_anim("idle")
+
+#-----конец анимаций_------
+func _on_animation_finished():
+	if sprite == null:
+		return
+
+	if sprite.animation == "attack":
+		is_attacking = false
+
+	if sprite.animation == "hurt":
+		is_hurt = false
+
+#-----безопасная анимка------
+func play_anim(anim_name: String):
+	if sprite == null:
+		return
+
+	if !sprite.sprite_frames.has_animation(anim_name):
+		return
+
+	if sprite.animation == anim_name and sprite.is_playing():
+		return
+
+	sprite.play(anim_name)
+	
+#-------плей харт анимация-------
+
+func play_hurt_anim():
+	if is_attacking:
+		return
+
+	is_hurt = true
+
+	if sprite != null and sprite.sprite_frames.has_animation("hurt"):
+		sprite.play("hurt")
+
+	await get_tree().create_timer(hurt_lock_time).timeout
+
+	is_hurt = false
+
+# -----дамаг флэш---------
 func damage_flash():
 	modulate = Color(1.5, 0.4, 0.4)
 
@@ -156,21 +291,17 @@ func take_damage(amount):
 	print("урон:", amount)
 	print("hp:", health)
 
+	play_hurt_anim()
 	damage_flash()
 
 	var hud = get_tree().get_first_node_in_group("hud")
-
-	print("HUD FOUND:", hud)
-
 	if hud != null and hud.has_method("show_damage_overlay"):
 		hud.show_damage_overlay()
-	else:
-		print("HUD не найден или нет метода show_damage_overlay")
 
 	var camera = get_viewport().get_camera_2d()
 	if camera != null and camera.has_method("add_shake"):
 		camera.add_shake(6)
-		
+
 	if health <= 0:
 		die()
 		return
@@ -180,25 +311,47 @@ func take_damage(amount):
 	is_invincible = false
 
 func die():
-	print("Игрок умер. Перезапуск уровня.")
+	if is_dead:
+		return
 
-	GameState.load_checkpoint()
-
+	is_dead = true
+	can_control = false
+	velocity = Vector2.ZERO
 	Engine.time_scale = 1.0
 
+	if sprite != null and sprite.sprite_frames.has_animation("die"):
+		sprite.play("die")
+		await sprite.animation_finished
+
+	GameState.load_checkpoint()
 	get_tree().reload_current_scene()
 
 
 
 # ------------------- АТАКА -------------------
 func attack():
-
 	if weapon == null:
-		print("Нет оружия")
+		return
+
+	if is_attacking:
 		return
 
 	if melee_scene == null:
 		print("melee_scene не задан")
+		return
+
+	is_attacking = true
+	play_anim("attack")
+
+	var attack_direction = facing_direction
+	spawn_attack_hitbox(attack_direction)
+
+	await get_tree().create_timer(attack_hit_delay).timeout
+
+	if is_dead:
+		return
+
+	if weapon == null:
 		return
 
 	var hit = melee_scene.instantiate()
@@ -350,6 +503,9 @@ func _ready():
 		spawn_position = global_position
 
 	global_position = spawn_position
+	
+	if sprite != null:
+		sprite.animation_finished.connect(_on_animation_finished)
 
 	if GameState.current_weapon != null or GameState.stored_orbs.size() > 0:
 		GameState.load_player(self)
@@ -370,8 +526,17 @@ func _ready():
 # ----------------- heal ----------------------
 func heal(amount):
 	health += amount
+
+	if health > 100:
+		health = 100
+
 	print("heal:", amount)
 	print("hp:", health)
+
+	var hud = get_tree().get_first_node_in_group("hud")
+
+	if hud != null and hud.has_method("show_heal_overlay"):
+		hud.show_heal_overlay()
 	
 	
 
@@ -453,14 +618,6 @@ func _physics_process(delta):
 			velocity.x = move_toward(velocity.x, direction * current_speed, acceleration * delta)
 		else:
 			velocity.x = move_toward(velocity.x, 0, friction * delta)
-	if velocity.x != 0:
-		if direction == 1:
-			get_node("AnimatedSprite2D").play("move_right")
-		elif direction == -1:
-			get_node("AnimatedSprite2D").play("move_left")
-	elif velocity.x == 0:
-		get_node("AnimatedSprite2D").play("idle")
-
 
 	# ------------------- Атак джокера -------------------
 	melee_cooldown -= delta
@@ -473,6 +630,7 @@ func _physics_process(delta):
 			melee_cooldown = weapon.attack_cooldown
 	
 	move_and_slide()
+	update_animation()
 
 	if global_position.y > fall_death_y and !is_respawning:
 		respawn_after_fall()

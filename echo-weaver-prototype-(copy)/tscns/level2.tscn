@@ -1,5 +1,6 @@
 [gd_scene format=4 uid="uid://bi8vvl2fdhtko"]
 
+[ext_resource type="Script" uid="uid://c2rknfv67uv2b" path="res://scripts/level_intro.gd" id="1_8k581"]
 [ext_resource type="PackedScene" uid="uid://bla6q46k5lek4" path="res://tscns/Orbs.tscn" id="1_a2lc0"]
 [ext_resource type="Texture2D" uid="uid://dg83f66wgg7n7" path="res://assets/kings and pigs/Sprites/14-TileSets/Terrain (32x32).png" id="5_mq61d"]
 [ext_resource type="Texture2D" uid="uid://m1yhokii3cci" path="res://assets/pastel.png" id="6_57toh"]
@@ -581,6 +582,8 @@ sources/3 = SubResource("TileSetAtlasSource_q4gcv")
 sources/0 = SubResource("TileSetAtlasSource_7at7n")
 
 [node name="Main" type="Node2D" unique_id=1044733990]
+script = ExtResource("1_8k581")
+level_title = "Уровень 2"
 
 [node name="Orbs" parent="." unique_id=1524022052 instance=ExtResource("1_a2lc0")]
 position = Vector2(1466, -123)
@@ -596,6 +599,7 @@ next_scene_path = "res://tscns/Level3.tscn"
 
 [node name="Door (Area2D)" parent="TileMapLayer" unique_id=630578064 instance=ExtResource("9_wokyg")]
 position = Vector2(0, 5)
+next_scene_path = ""
 
 [node name="Player" parent="." unique_id=2055960255 instance=ExtResource("10_3mtrk")]
 position = Vector2(3, -1)

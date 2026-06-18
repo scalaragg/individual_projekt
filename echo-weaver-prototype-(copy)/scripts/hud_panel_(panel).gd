@@ -19,6 +19,9 @@ var player = null
 @onready var damage_overlay = get_node_or_null("DamageOverlay")
 @onready var low_hp_vignette = get_node_or_null("LowHPVignette")
 
+@onready var level_title_label = get_node_or_null("LevelTitleLabel")
+@onready var heal_overlay = get_node_or_null("HealOverlay")
+
 func _ready():
 	player = get_tree().get_first_node_in_group("player")
 
@@ -42,6 +45,24 @@ func _ready():
 	setup_panel_style()
 	
 	
+func show_level_title(title_text: String):
+	if level_title_label == null:
+		return
+
+	level_title_label.text = title_text
+	level_title_label.modulate.a = 0.0
+	level_title_label.show()
+
+	var tween = create_tween()
+
+	tween.tween_property(level_title_label, "modulate:a", 1.0, 0.6)
+	tween.tween_interval(1.4)
+	tween.tween_property(level_title_label, "modulate:a", 0.0, 0.8)
+
+	await tween.finished
+	level_title_label.hide()
+	
+	
 func update_low_hp_vignette():
 	if low_hp_vignette == null:
 		return
@@ -55,6 +76,15 @@ func update_low_hp_vignette():
 
 	var danger = 0.55 - (hp_percent / 0.35)
 	low_hp_vignette.modulate = Color(1.0, 0.0, 0.0, danger * 0.45)
+	
+func show_heal_overlay():
+	if heal_overlay == null:
+		return
+
+	heal_overlay.color = Color(0.0, 1.0, 0.25, 0.11)
+
+	var tween = create_tween()
+	tween.tween_property(heal_overlay, "color:a", 0.0, 0.35)
 	
 func show_damage_overlay():
 	print("DAMAGE OVERLAY CALLED")
@@ -76,10 +106,12 @@ func _process(_delta):
 			return
 
 	update_hp()
-	update_weapon()
+	update_weapon(player)
 	update_orbs()
 	update_weapon_slots()
 	update_low_hp_vignette()
+
+
 
 
 func setup_panel_style():
@@ -104,14 +136,28 @@ func update_hp():
 		hp_label.text = "HP  " + str(player.health)
 
 
-func update_weapon():
+func update_weapon(player):
 	if weapon_label == null:
 		return
 
-	if player.weapon != null:
-		weapon_label.text = player.weapon.weapon_name
-	else:
+	if player.weapon == null:
 		weapon_label.text = "No weapon"
+
+		if weapon_icon != null:
+			weapon_icon.texture = null
+			weapon_icon.hide()
+
+		return
+
+	weapon_label.text = player.weapon.weapon_name
+
+	if weapon_icon != null:
+		if player.weapon.pickup_texture != null:
+			weapon_icon.texture = player.weapon.pickup_texture
+			weapon_icon.show()
+		else:
+			weapon_icon.texture = null
+			weapon_icon.hide()
 
 
 func update_orbs():
