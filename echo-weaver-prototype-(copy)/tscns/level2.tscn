@@ -584,7 +584,7 @@ sources/0 = SubResource("TileSetAtlasSource_7at7n")
 
 [node name="Main" type="Node2D" unique_id=1044733990]
 script = ExtResource("1_8k581")
-level_title = "Уровень 2"
+level_title = ""
 
 [node name="Orbs" parent="." unique_id=1524022052 instance=ExtResource("1_a2lc0")]
 position = Vector2(1466, -123)
