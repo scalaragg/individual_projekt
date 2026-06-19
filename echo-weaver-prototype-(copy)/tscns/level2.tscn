@@ -646,7 +646,7 @@ offset_bottom = 34.0
 
 [node name="HintPromt3" parent="." unique_id=1816076055 instance=ExtResource("14_34b0a")]
 position = Vector2(1259, -281)
-hint_text = "Орб - еденица улучшения оружия"
+hint_text = "Орб - единица улучшения оружия"
 
 [node name="Sprite2D" parent="HintPromt3/Visual" parent_id_path=PackedInt32Array(1816076055, 1748423725) index="0" unique_id=2137496357]
 position = Vector2(117.99999, 68.99999)
