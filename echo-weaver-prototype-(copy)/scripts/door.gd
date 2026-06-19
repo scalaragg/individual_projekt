@@ -2,6 +2,9 @@ extends Area2D
 
 @export var next_scene_path: String = "res://tscns/menu.tscn"
 @export var playertscn: PackedScene
+
+@onready var audio_door = get_node_or_null("AudioDoor")
+
 var enemies_dead = false
 var player_inside = false
 var is_open = false
@@ -71,6 +74,9 @@ func enter_door():
 
 	GameState.save_player(player)
 	GameState.save_checkpoint()
+	if audio_door != null:
+		audio_door.play()
+		await get_tree().create_timer(0.25).timeout
 
 	if "can_control" in player:
 		player.can_control = false
@@ -80,8 +86,6 @@ func enter_door():
 	await tween.finished
 
 	await close_door()
-
-	await get_tree().create_timer(0.2).timeout
 	get_tree().change_scene_to_file(next_scene_path)
 
 

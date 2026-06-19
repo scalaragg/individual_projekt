@@ -13,6 +13,7 @@
 [ext_resource type="PackedScene" uid="uid://cv76gsmcxj3cu" path="res://tscns/parallax_background.tscn" id="14_l4mlq"]
 [ext_resource type="Texture2D" uid="uid://cfd338xes84j8" path="res://assets/ff5e0114-a04c-46c5-b375-bbaf756d770f 1.png" id="15_1byad"]
 [ext_resource type="Texture2D" uid="uid://bonlwe1idvrab" path="res://assets/920cc051-9d5c-4f48-ac42-81db7ecf15cb 1.png" id="16_2vgi1"]
+[ext_resource type="AudioStream" uid="uid://fmoh8lyqiwf7" path="res://assets/sounds/Audio/Ogg/Pixel 10.ogg" id="16_34b0a"]
 [ext_resource type="Texture2D" uid="uid://cj6ykpn8phdp" path="res://assets/1e025dca-ec55-4280-b3cb-5020029ff134 1@2x.png" id="17_1byad"]
 [ext_resource type="PackedScene" uid="uid://xetut2tek33x" path="res://tscns/HUD.tscn" id="19_rygrv"]
 
@@ -608,9 +609,15 @@ position = Vector2(3, -1)
 
 [node name="Enemy" parent="." unique_id=1407349446 instance=ExtResource("13_l4mlq")]
 position = Vector2(2991, -111)
+health = 20
+attack_damage = 15
+attack_range = 50.0
 
 [node name="Enemy2" parent="." unique_id=1506992571 instance=ExtResource("13_l4mlq")]
 position = Vector2(2872, -367)
+health = 20
+attack_damage = 15
+attack_range = 50.0
 
 [node name="HintPromt" parent="." unique_id=71255335 instance=ExtResource("14_34b0a")]
 position = Vector2(2026, -395)
@@ -679,6 +686,11 @@ scale = Vector2(0.45, 1)
 position = Vector2(462.2223, 82)
 
 [node name="ParallaxBackground" parent="." unique_id=1015658066 instance=ExtResource("14_l4mlq")]
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=1979032045]
+stream = ExtResource("16_34b0a")
+volume_db = -20.0
+autoplay = true
 
 [editable path="HintPromt"]
 [editable path="HintPromt2"]

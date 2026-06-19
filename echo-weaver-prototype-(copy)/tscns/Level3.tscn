@@ -10,6 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://cr7p6n07wp2ft" path="res://tscns/Boss.tscn" id="11_eu0ot"]
 [ext_resource type="PackedScene" uid="uid://cbihbbt0oeqsb" path="res://tscns/Player.tscn" id="11_yapu7"]
 [ext_resource type="PackedScene" uid="uid://xetut2tek33x" path="res://tscns/HUD.tscn" id="12_fmmkc"]
+[ext_resource type="AudioStream" uid="uid://4rura4q3780i" path="res://assets/sounds/Audio/Ogg/Pixel 8.ogg" id="12_r2ie7"]
 [ext_resource type="PackedScene" uid="uid://ceoodsh3k7tj5" path="res://tscns/Enemy.tscn" id="13_02sif"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_7at7n"]
@@ -602,18 +603,30 @@ position = Vector2(3, -1)
 [node name="Enemy" parent="." unique_id=1407349446 instance=ExtResource("13_02sif")]
 position = Vector2(1465, -302)
 EnemyDamage = 10
+health = 25
+attack_damage = 15
+attack_range = 50.0
 
 [node name="Enemy2" parent="." unique_id=1431978655 instance=ExtResource("13_02sif")]
 position = Vector2(1178, -543)
 EnemyDamage = 15
+health = 25
+speed = 120.0
+attack_damage = 20
 
 [node name="Enemy3" parent="." unique_id=318972879 instance=ExtResource("13_02sif")]
 position = Vector2(1718, -497)
 EnemyDamage = 10
+attack_damage = 15
+attack_range = 50.0
 
 [node name="ParallaxBackground" parent="." unique_id=1015658066 instance=ExtResource("9_wbbgq")]
 
 [node name="Enemy4" parent="." unique_id=198654899 instance=ExtResource("11_eu0ot")]
 position = Vector2(-1040, -546)
 EnemyDamage = 40
-attack_range = 40.0
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=37786564]
+stream = ExtResource("12_r2ie7")
+volume_db = -20.0
+autoplay = true

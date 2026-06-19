@@ -5,6 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://dqujqd3dqplfu" path="res://assets/kings and pigs/Sprites/11-Door/Idle.png" id="2_l46b5"]
 [ext_resource type="PackedScene" uid="uid://cbihbbt0oeqsb" path="res://tscns/Player.tscn" id="2_ppnqu"]
 [ext_resource type="Texture2D" uid="uid://bsiqdi5gj8fmj" path="res://assets/kings and pigs/Sprites/11-Door/Opening (46x56).png" id="3_ppnqu"]
+[ext_resource type="AudioStream" uid="uid://dmaokvnmjq56t" path="res://assets/sounds/Audio/otherSounds/mixkit-heavy-sliding-door-1523.ogg" id="6_5ctx0"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ajqtp"]
 atlas = ExtResource("1_ajqtp")
@@ -54,7 +55,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_ppnqu")
 }],
-"loop": true,
+"loop": 1,
 "name": &"close",
 "speed": 5.0
 }, {
@@ -62,7 +63,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_5ctx0")
 }],
-"loop": true,
+"loop": 1,
 "name": &"idle",
 "speed": 0.0
 }, {
@@ -82,7 +83,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_5ix2s")
 }],
-"loop": false,
+"loop": 0,
 "name": &"open",
 "speed": 5.0
 }]
@@ -101,3 +102,6 @@ autoplay = "idle"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=186535660]
 shape = SubResource("RectangleShape2D_c43je")
+
+[node name="AudioDoor" type="AudioStreamPlayer2D" parent="." unique_id=1518170731]
+stream = ExtResource("6_5ctx0")

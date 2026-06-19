@@ -6,6 +6,9 @@ extends CharacterBody2D
 @export var green_texture: Texture2D
 @export var blue_texture: Texture2D
 
+@export var attract_delay: float = 0.45
+var can_attract: bool = false
+
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 
 var attract_speed = 250
@@ -18,6 +21,9 @@ var is_attracting = false
 func _ready():
 	player = get_tree().get_first_node_in_group("player")
 	update_visual()
+
+	await get_tree().create_timer(attract_delay).timeout
+	can_attract = true
 
 
 func update_visual():
@@ -34,7 +40,8 @@ func update_visual():
 
 func _on_area_2d_body_entered(body):
 	if body.is_in_group("player"):
-		is_attracting = true
+		if can_attract:
+			is_attracting = true
 
 
 func _on_area_2d_body_exited(body):
@@ -52,7 +59,7 @@ func _physics_process(delta):
 		else:
 			velocity.x = 0
 
-	if player != null:
+	if player != null and can_attract:
 		var distance = global_position.distance_to(player.global_position)
 
 		if distance <= 40:

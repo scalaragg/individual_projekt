@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://bxjdl16rk4nvh" path="res://scripts/menu.gd" id="1_88q6y"]
 [ext_resource type="Texture2D" uid="uid://37y05bm1abgq" path="res://assets/ChatGPT Image 17 июн. 2026 г., 21_07_19.png" id="2_88q6y"]
+[ext_resource type="AudioStream" uid="uid://c10gvkv1otq2x" path="res://assets/sounds/Audio/Ogg/Pixel 12.ogg" id="3_da7iv"]
 
 [node name="Menu" type="Control" unique_id=57552295]
 layout_mode = 3
@@ -13,16 +14,22 @@ grow_vertical = 2
 script = ExtResource("1_88q6y")
 
 [node name="Background" type="TextureRect" parent="." unique_id=1383405354]
-layout_mode = 0
-offset_right = 1920.0
-offset_bottom = 1080.0
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 texture = ExtResource("2_88q6y")
 
 [node name="DarkOverlay" type="ColorRect" parent="." unique_id=606277615]
 visible = false
-layout_mode = 0
-offset_right = 1920.0
-offset_bottom = 1080.0
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 mouse_filter = 2
 color = Color(0, 0, 0, 0.4)
 
@@ -81,18 +88,21 @@ theme_override_font_sizes/font_size = 72
 text = "Выход"
 
 [node name="SettingsPanel" type="Panel" parent="." unique_id=665321716]
-visible = false
-layout_mode = 0
-offset_left = 1.0
-offset_right = 41.0
-offset_bottom = 40.0
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="SettingsBox" type="VBoxContainer" parent="SettingsPanel" unique_id=2063417716]
-layout_mode = 0
-offset_left = 2.0
-offset_top = 1.0
-offset_right = 191.0
-offset_bottom = 483.0
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -1385.0
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="TabsRow" type="HBoxContainer" parent="SettingsPanel/SettingsBox" unique_id=26789405]
 layout_mode = 2
@@ -173,10 +183,15 @@ offset_bottom = 1037.0
 theme_override_font_sizes/font_size = 86
 text = "Назад"
 
-[connection signal="pressed" from="Control/VBoxContainer2/PlayButton" to="." method="_on_play_button_pressed"]
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=2146392168]
+stream = ExtResource("3_da7iv")
+volume_db = -16.0
+autoplay = true
+
 [connection signal="pressed" from="Control/VBoxContainer2/PlayButton" to="." method="_on_restart_button_pressed"]
-[connection signal="pressed" from="Control/VBoxContainer2/SettingsButton" to="." method="_on_settings_button_pressed"]
+[connection signal="pressed" from="Control/VBoxContainer2/PlayButton" to="." method="_on_play_button_pressed"]
 [connection signal="pressed" from="Control/VBoxContainer2/SettingsButton" to="." method="_on_menu_button_pressed"]
+[connection signal="pressed" from="Control/VBoxContainer2/SettingsButton" to="." method="_on_settings_button_pressed"]
 [connection signal="pressed" from="Control/VBoxContainer2/QuitButton" to="." method="_on_quit_button_pressed"]
 [connection signal="pressed" from="SettingsPanel/SettingsBox/TabsRow/ScreenTabButton" to="." method="_on_screen_tab_button_pressed"]
 [connection signal="pressed" from="SettingsPanel/SettingsBox/TabsRow/SoundTabButton" to="." method="_on_sound_tab_button_pressed"]

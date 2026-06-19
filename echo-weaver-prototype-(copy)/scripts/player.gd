@@ -44,6 +44,17 @@ var is_invincible: bool = false
 @export var invincible_time: float = 0.4
 @export var hurt_lock_time: float = 0.25
 
+@onready var audio_jump = get_node_or_null("AudioJump")
+@onready var audio_attack = get_node_or_null("AudioAttack")
+@onready var audio_hurt = get_node_or_null("AudioHurt")
+@onready var audio_pickup = get_node_or_null("AudioPickup")
+@onready var audio_step = get_node_or_null("AudioStep")
+@onready var audio_death = get_node_or_null("AudioDeath")
+@onready var audio_get_damage = get_node_or_null("AudioGetDamage")
+
+@export var step_interval: float = 0.28
+var step_timer: float = 0.0
+
 #----спавн атак хитбокс ------
 
 func spawn_attack_hitbox(attack_direction: float):
@@ -95,6 +106,26 @@ func spawn_attack_hitbox(attack_direction: float):
 	print("оружие:", weapon.weapon_name)
 	print("урон:", damage)
 	print("орбы:", weapon.inserted_orbs)
+
+#---------звук---------
+func handle_footsteps(delta):
+	if audio_step == null:
+		return
+
+	if !is_on_floor():
+		step_timer = 0.0
+		return
+
+	if abs(velocity.x) < 20:
+		step_timer = 0.0
+		return
+
+	step_timer -= delta
+
+	if step_timer <= 0:
+		audio_step.pitch_scale = randf_range(0.9, 1.1)
+		audio_step.play()
+		step_timer = step_interval
 
 #----- анимациии ------
 func update_animation():
@@ -196,6 +227,8 @@ func pickup_weapon(new_weapon):
 		get_parent().add_child(dropped)
 	# EQUIP NEW
 	weapon = new_weapon
+	if audio_pickup != null:
+		audio_pickup.play()
 	print("picked weapon:", weapon.weapon_name)
 	
 	
@@ -241,7 +274,8 @@ func add_orb(orb_type):
 
 	print("picked orb:", orb_type)
 	print("stored:", stored_orbs)
-
+	if audio_pickup != null:
+		audio_pickup.play()
 
 func insert_next_orb():
 
@@ -290,7 +324,9 @@ func take_damage(amount):
 	health -= amount
 	print("урон:", amount)
 	print("hp:", health)
-
+	
+	if audio_get_damage != null:
+		audio_get_damage.play()
 	play_hurt_anim()
 	damage_flash()
 
@@ -305,7 +341,7 @@ func take_damage(amount):
 	if health <= 0:
 		die()
 		return
-
+	
 	is_invincible = true
 	await get_tree().create_timer(invincible_time).timeout
 	is_invincible = false
@@ -313,14 +349,18 @@ func take_damage(amount):
 func die():
 	if is_dead:
 		return
-
+		
 	is_dead = true
 	can_control = false
 	velocity = Vector2.ZERO
 	Engine.time_scale = 1.0
+	
+	
 
-	if sprite != null and sprite.sprite_frames.has_animation("die"):
+
+	if sprite != null and sprite.sprite_frames.has_animation("die") and audio_death != null:
 		sprite.play("die")
+		audio_death.play()
 		await sprite.animation_finished
 
 	GameState.load_checkpoint()
@@ -345,6 +385,8 @@ func attack():
 
 	var attack_direction = facing_direction
 	spawn_attack_hitbox(attack_direction)
+	if audio_attack != null:
+		audio_attack.play()
 
 	await get_tree().create_timer(attack_hit_delay).timeout
 
@@ -436,6 +478,8 @@ var second_jump_multiplier: float = 0.75
 
 func do_jump(power_multiplier: float = 1.0):
 	velocity.y = jump_velocity * power_multiplier
+	if audio_jump != null:
+		audio_jump.play()
 	jump_buffer_timer = 0.0
 # ------------------- НАПРАВЛЕНИЕ -------------------
 var facing_direction: float = 1.0
@@ -631,6 +675,7 @@ func _physics_process(delta):
 	
 	move_and_slide()
 	update_animation()
+	handle_footsteps(delta)
 
 	if global_position.y > fall_death_y and !is_respawning:
 		respawn_after_fall()

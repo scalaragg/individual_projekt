@@ -10,6 +10,7 @@
 [ext_resource type="Texture2D" uid="uid://cc3xr7q0uubw8" path="res://assets/kings and pigs/Sprites/03-Pig/Idle (34x28).png" id="6_f5xv3"]
 [ext_resource type="Texture2D" uid="uid://cwthdgcu50q2m" path="res://assets/kings and pigs/Sprites/03-Pig/Jump (34x28).png" id="7_25jat"]
 [ext_resource type="Texture2D" uid="uid://ijc6b8qrqosk" path="res://assets/kings and pigs/Sprites/03-Pig/Run (34x28).png" id="8_1udjd"]
+[ext_resource type="AudioStream" uid="uid://dvholnxvqflrm" path="res://assets/sounds/Audio/kennysounds/impactWood_light_000.ogg" id="11_tyt65"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_u3abk"]
 atlas = ExtResource("2_0rc6h")
@@ -277,6 +278,7 @@ EnemyDamage = 30
 damage_text_scene = ExtResource("3_u8qfd")
 orb_scene = ExtResource("2_s7bn3")
 attack_range = 42.0
+attack_cooldown = 0.5
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1711543428]
 modulate = Color(0.97321445, 0.79263955, 0.79141486, 1)
@@ -292,6 +294,9 @@ shape = SubResource("RectangleShape2D_s7bn3")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=727164199]
 shape = SubResource("CircleShape2D_s7bn3")
+
+[node name="AudioHit" type="AudioStreamPlayer2D" parent="." unique_id=1972033679]
+stream = ExtResource("11_tyt65")
 
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
 [connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]

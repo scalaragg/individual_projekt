@@ -30,7 +30,7 @@ var is_attacking = false
 @export var stop_distance: float = 18.0
 @export var attack_hit_delay: float = 0.25
 
-
+@onready var audio_hit = get_node_or_null("AudioHit")
 
 @export var boss_dash_speed: float = 420.0
 @export var boss_dash_cooldown: float = 3.0
@@ -222,6 +222,10 @@ func take_damage(damage):
 
 	invulnerable = true
 
+	if audio_hit != null:
+		audio_hit.pitch_scale = randf_range(0.95, 1.05)
+		audio_hit.play()
+
 	print("Враг атакован")
 
 	health -= damage
@@ -237,6 +241,8 @@ func take_damage(damage):
 
 	await get_tree().create_timer(0.15).timeout
 
+	if is_instance_valid(self):
+		invulnerable = false
 	if is_instance_valid(self):
 		invulnerable = false
 

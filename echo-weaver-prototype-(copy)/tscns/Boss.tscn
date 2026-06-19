@@ -17,6 +17,7 @@
 [ext_resource type="Texture2D" uid="uid://rlu42syhay8m" path="res://assets/kings and pigs/Sprites/02-King Pig/Idle (38x28).png" id="13_jlqtb"]
 [ext_resource type="Texture2D" uid="uid://dmv30g8n4wsfx" path="res://assets/kings and pigs/Sprites/02-King Pig/Jump (38x28).png" id="14_dlcb1"]
 [ext_resource type="Texture2D" uid="uid://cyn73t2fa84q0" path="res://assets/kings and pigs/Sprites/02-King Pig/Run (38x28).png" id="15_gj7lb"]
+[ext_resource type="AudioStream" uid="uid://dvholnxvqflrm" path="res://assets/sounds/Audio/kennysounds/impactWood_light_000.ogg" id="18_xiqt5"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_u3abk"]
 atlas = ExtResource("2_jm8wv")
@@ -559,6 +560,9 @@ shape = SubResource("RectangleShape2D_s7bn3")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=727164199]
 shape = SubResource("CircleShape2D_s7bn3")
+
+[node name="AudioHit" type="AudioStreamPlayer2D" parent="." unique_id=977636007]
+stream = ExtResource("18_xiqt5")
 
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
 [connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]

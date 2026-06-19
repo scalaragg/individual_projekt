@@ -4,6 +4,8 @@ extends Area2D
 @export var knockback: float = 100
 @export var time_alive: float = 0.1
 
+
+
 var effects: Array[String] = []
 var timer = 0.0
 var already_hit = []
@@ -133,4 +135,5 @@ func _physics_process(delta):
 	timer -= delta
 
 	if timer <= 0:
+		await get_tree().create_timer(0.12).timeout
 		queue_free()

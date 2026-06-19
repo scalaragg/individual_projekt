@@ -44,6 +44,13 @@
 [ext_resource type="Texture2D" uid="uid://bky1f2pxuc6lh" path="res://assets/main/Player/run/adventurer-run-05.png" id="42_wk4h3"]
 [ext_resource type="Texture2D" uid="uid://8rl53tl1pvq3" path="res://assets/main/Player/slide/adventurer-slide-00.png" id="43_6ngkx"]
 [ext_resource type="Texture2D" uid="uid://cp4qq3dgjtbu8" path="res://assets/main/Player/slide/adventurer-slide-01.png" id="44_4lcp8"]
+[ext_resource type="AudioStream" uid="uid://b31s7mfcwdtvf" path="res://assets/sounds/Audio/otherSounds/Masc-Jump_1.ogg" id="45_0n8vb"]
+[ext_resource type="AudioStream" uid="uid://dg3h4xp1k5s0j" path="res://assets/sounds/Audio/kennysounds/impactPunch_heavy_000.ogg" id="45_hkfjt"]
+[ext_resource type="AudioStream" uid="uid://7kwaffda4tvu" path="res://assets/sounds/Audio/otherSounds/51b1e5d37c08a61.ogg" id="46_lr6rd"]
+[ext_resource type="AudioStream" uid="uid://bf6saspj3ck27" path="res://assets/sounds/Audio/kennysounds/impactMetal_medium_004.ogg" id="47_koy26"]
+[ext_resource type="AudioStream" uid="uid://cn45ci554plk5" path="res://assets/sounds/Audio/Audios/Dirt/Steps_dirt-001.ogg" id="48_hkfjt"]
+[ext_resource type="AudioStream" uid="uid://di536gccvxqr0" path="res://assets/sounds/Audio/otherSounds/0619.ogg" id="48_koy26"]
+[ext_resource type="AudioStream" uid="uid://dogjh5shdbeew" path="res://assets/sounds/Audio/kennysounds/impactGlass_medium_000.ogg" id="48_lr6rd"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_kpjcp"]
 size = Vector2(32, 55)
@@ -254,5 +261,36 @@ scale = Vector2(1.5, 1.5)
 sprite_frames = SubResource("SpriteFrames_q8m7j")
 animation = &"attack"
 autoplay = "idle"
+
+[node name="AudioGetDamage" type="AudioStreamPlayer2D" parent="." unique_id=2040941416]
+stream = ExtResource("45_hkfjt")
+volume_db = -8.0
+
+[node name="AudioJump" type="AudioStreamPlayer2D" parent="." unique_id=972603817]
+stream = ExtResource("45_0n8vb")
+volume_db = -8.0
+
+[node name="AudioAttack" type="AudioStreamPlayer2D" parent="." unique_id=1711682208]
+stream = ExtResource("46_lr6rd")
+volume_db = -8.0
+
+[node name="AudioHurt" type="AudioStreamPlayer2D" parent="." unique_id=1765859798]
+volume_db = -8.0
+
+[node name="AudioPickup" type="AudioStreamPlayer2D" parent="." unique_id=1244818966]
+stream = ExtResource("47_koy26")
+volume_db = -8.0
+
+[node name="AudioDeath" type="AudioStreamPlayer2D" parent="." unique_id=1750967087]
+stream = ExtResource("48_koy26")
+volume_db = -8.0
+
+[node name="AudioOrb" type="AudioStreamPlayer2D" parent="." unique_id=1679257886]
+stream = ExtResource("48_lr6rd")
+volume_db = -12.0
+
+[node name="AudioStep" type="AudioStreamPlayer2D" parent="." unique_id=831523225]
+stream = ExtResource("48_hkfjt")
+volume_db = -12.0
 
 [connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]

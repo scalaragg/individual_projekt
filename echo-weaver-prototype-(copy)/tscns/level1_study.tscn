@@ -15,6 +15,7 @@
 [ext_resource type="PackedScene" uid="uid://cd68mxrtm6521" path="res://tscns/weapon_pickup.tscn" id="17_j653c"]
 [ext_resource type="Resource" uid="uid://o3yuf6nycjl8" path="res://resources/weapons/sword.tres" id="18_7yrr3"]
 [ext_resource type="Texture2D" uid="uid://vnmljk52o8ke" path="res://assets/Space-Photoroom 1.png" id="19_gw1vt"]
+[ext_resource type="AudioStream" uid="uid://dqtkxwslgprpx" path="res://assets/sounds/Audio/Ogg/Pixel 2.ogg" id="19_jo56t"]
 [ext_resource type="PackedScene" uid="uid://xetut2tek33x" path="res://tscns/HUD.tscn" id="19_u0wor"]
 [ext_resource type="Texture2D" uid="uid://b12y81qavx4pl" path="res://assets/E-Photoroom 1.png" id="20_cofr6"]
 [ext_resource type="Texture2D" uid="uid://dxmxwprtjqtlb" path="res://assets/LMB-Photoroom 1.png" id="21_nb44v"]
@@ -639,7 +640,6 @@ scale = Vector2(0.933, 1.015)
 
 [node name="Enemy" parent="." unique_id=1407349446 instance=ExtResource("16_gdclg")]
 position = Vector2(2697, -128)
-EnemyDamage = 15
 drop_orb = false
 orb_drop_chance = 0.0
 orb_scene = SubResource("PackedScene_701qp")
@@ -731,6 +731,11 @@ weapon_data = ExtResource("18_7yrr3")
 [node name="Sprite2D" parent="Area2D" index="0" unique_id=1096511989]
 position = Vector2(0, 7)
 rotation = 0.7853982
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=386316648]
+stream = ExtResource("19_jo56t")
+volume_db = -20.0
+autoplay = true
 
 [editable path="A and D hint"]
 [editable path="SpaceHint"]
